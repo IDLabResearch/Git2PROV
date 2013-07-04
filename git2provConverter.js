@@ -35,20 +35,35 @@ function clone(giturl, repositoryPath, callback) {
   });
 }
 
+/* We convert git concepts to PROV concepts as follows:
+  commit c ---> activity(c)
+  file f   ---> entity(f)
+  author a ---> agent(a)
+  file f in commit c ---> specializationOf(f_c, f)
+*/
 function convertRepositoryToProv(giturl, repository, repositoryPath, callback) {
   // determine a QName for the bundle
   var prefix = giturl.substring(giturl.indexOf("://")+3,giturl.indexOf('.'));
   var prefixurl = giturl.substring(0,giturl.lastIndexOf('/')+1);
   
-  //do a git log
-  exec('git --no-pager log --graph --pretty=format:",%H,%an"', { cwd : repositoryPath }, function (error, stdout, stderr) {
-    
-    console.log(stdout);
-    
+  // first, do a git log to find out about all files that ever existed in the repository
+  exec('git --no-pager log --pretty=format: --name-only --diff-filter=A', { cwd : repositoryPath }, function (error, stdout, stderr) {
+    var files = stdout.toString().split('\n');
+    // For some reason, git log appends empty lines here and there. Let's fitler them out.
+    files = files.filter(function(element, index, array) { return element !== ""; });
+    var entities = [];
+    files.forEach(function(file) {
+        // Because all identifiers need to be QNames in PROV, we need to get rid of the slashes
+        var entity = file.replace(/\//g,"-");
+        entities.push(entity);
+    });
     //write everything to the result string
     var prov = "document" + "\n";
     prov += "prefix " + prefix + " <" + prefixurl + ">" + "\n";
     prov += "bundle " + prefix + ":" + repository + "\n";
+    entities.forEach(function(entity) {
+        prov += "entity(" + entity + ")" + "\n";
+    });
     prov += "endBundle " + "\n";
     prov += "endDocument" + "\n";
     
