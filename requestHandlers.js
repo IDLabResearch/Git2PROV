@@ -7,12 +7,11 @@ function git2prov(request, response) {
   //console.log(query);
   if(query['giturl']){
     git2provConverter.convert(query['giturl'], function(prov, error) {
-    console.log("prov: " + prov + " error: " + error);
+    //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
         response.writeHead(400, "Git repository could not be cloned.");//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
         response.end();
       } else {
-        console.log("Great Succes!");
         response.writeHead(200, {"Content-Type": "text/plain"});//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
         response.write(prov);
         response.end();
