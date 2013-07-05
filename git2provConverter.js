@@ -1,8 +1,9 @@
 /* A converter for a git url to PROV-N */
 var sys = require('sys')
 var exec = require('child_process').exec;
+var serialize = require('./provSerializer').serialize;
 
-function convert(giturl, callback) {
+function convert(giturl, serialization, callback) {
   // get the repository name. 
   var repository = giturl.substring(giturl.lastIndexOf('/')+1, giturl.lastIndexOf('.git'));
   // This will be used to temporarily store the cloned repository. 
@@ -16,8 +17,8 @@ function convert(giturl, callback) {
       exec("rm -rf " + repositoryPath);
     } else {
       // convert the information from the git url to PROV
-      convertRepositoryToProv(giturl, repository, repositoryPath, function(prov){
-        callback(prov,null);
+      convertRepositoryToProv(giturl, repository, repositoryPath, serialization, function(prov,contentType){
+        callback(prov,null,contentType);
         // cleanup - delete the repository
         exec("rm -rf " + repositoryPath);
       });
@@ -41,15 +42,15 @@ function clone(giturl, repositoryPath, callback) {
   author a ---> agent(a)
   file f in commit c ---> specializationOf(f_c, f)
 */
-function convertRepositoryToProv(giturl, repository, repositoryPath, callback) {
+function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, callback) {
   // determine a QName for the bundle
   var prefix = giturl.substring(giturl.indexOf("://")+3,giturl.indexOf('.'));
-  var prefixurl = giturl.substring(0,giturl.lastIndexOf('/')+1);
+  var prefixUrl = giturl.substring(0,giturl.lastIndexOf('/')+1);
   
   // first, do a git log to find out about all files that ever existed in the repository
   exec('git --no-pager log --pretty=format: --name-only --diff-filter=A', { cwd : repositoryPath }, function (error, stdout, stderr) {
     var files = stdout.toString().split('\n');
-    // For some reason, git log appends empty lines here and there. Let's fitler them out.
+    // For some reason, git log appends empty lines here and there. Let's filter them out.
     files = files.filter(function(element, index, array) { return element !== ""; });
     var entities = [];
     files.forEach(function(file) {
@@ -57,17 +58,9 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, callback) {
         var entity = file.replace(/\//g,"-");
         entities.push(entity);
     });
-    //write everything to the result string
-    var prov = "document" + "\n";
-    prov += "prefix " + prefix + " <" + prefixurl + ">" + "\n";
-    prov += "bundle " + prefix + ":" + repository + "\n";
-    entities.forEach(function(entity) {
-        prov += "entity(" + entity + ")" + "\n";
+    serialize(serialization, prefix, prefixUrl, repository, entities, null, null, null, null,function(prov, contentType) {
+      callback(prov,contentType);
     });
-    prov += "endBundle " + "\n";
-    prov += "endDocument" + "\n";
-    
-    callback(prov,null);
   });
 }
 

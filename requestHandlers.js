@@ -6,13 +6,13 @@ function git2prov(request, response) {
   var query = url.parse(request.url, true).query;
   //console.log(query);
   if(query['giturl']){
-    git2provConverter.convert(query['giturl'], function(prov, error) {
+    git2provConverter.convert(query['giturl'], query['serialization'], function(prov, error, contentType) {
     //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
         response.writeHead(400, "Git repository could not be cloned.");//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
         response.end();
       } else {
-        response.writeHead(200, {"Content-Type": "text/plain"});//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
+        response.writeHead(200, {"Content-Type": contentType});//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
         response.write(prov);
         response.end();
       }
