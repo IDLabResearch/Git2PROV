@@ -50,16 +50,41 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
   // first, do a git log to find out about all files that ever existed in the repository
   exec('git --no-pager log --pretty=format: --name-only --diff-filter=A', { cwd : repositoryPath }, function (error, stdout, stderr) {
     var files = stdout.toString().split('\n');
-    // For some reason, git log appends empty lines here and there. Let's filter them out.
+    // For some reason, git log appends empty lines here and there. Let's fitler them out.
     files = files.filter(function(element, index, array) { return element !== ""; });
     var entities = [];
+    var activities = [];
+    var agents = [];
+    var specializations = [];
+    var derivations = [];
+    // Keep track of how many files have been processed
+    var async_count = files.length;
     files.forEach(function(file) {
-        // Because all identifiers need to be QNames in PROV, we need to get rid of the slashes
-        var entity = file.replace(/\//g,"-");
-        entities.push(entity);
-    });
-    serialize(serialization, prefix, prefixUrl, repository, entities, null, null, null, null,function(prov, contentType) {
-      callback(prov,contentType);
+      // Because all identifiers need to be QNames in PROV, we need to get rid of the slashes
+      var entity = file.replace(/\//g,"-");
+      entities.push(entity);
+      // Next, do a git log for each file to find out about all commits, authors, and the commit parents
+      // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject
+      // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
+      exec('git --no-pager log --pretty=format:"'+file+',%H,%P,%an,%ad,%cn,%cd,%s" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
+        //console.log(stdout);
+        var data = stdout.split(",");
+        var file = data[0];
+        var commit = data[1];
+        var parents = data[2];
+        var authorname = data[3];
+        var authordate = data[4];
+        var authorname = data[5];
+        var committername = data[6];
+        var committerdate = data[7];
+        var subject = data[8];
+        console.log(file + " | Commit: "+ commit + " | Parents: " + parents + " | " + subject);
+        async_count--;
+        if(async_count == 0){
+          // Node.js is single-threaded, so don't worry, this always works
+          console.log("all files processed");
+        }
+      });
     });
   });
 }

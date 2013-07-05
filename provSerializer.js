@@ -66,9 +66,26 @@ function serializePROVN(prefix, prefixUrl, repository, entities, activities, age
   var prov = "document" + "\n";
   prov += "prefix " + prefix + " <" + prefixUrl + ">" + "\n";
   prov += "bundle " + prefix + ":" + repository + "\n";
-  entities.forEach(function(entity) {
-      prov += "entity(" + entity + ")" + "\n";
-  });
+  if(entities) 
+    entities.forEach(function(entity) {
+        prov += "entity(" + entity + ")" + "\n";
+    });
+  if(activities) 
+    activities.forEach(function(activity) {
+        prov += "activity(" + activity + ")" + "\n";
+    });
+  if(agents) 
+    agents.forEach(function(agent) {
+        prov += "agent(" + agent + ")" + "\n";
+    });
+  if(specializations) 
+    specializations.forEach(function(specialization) {
+        prov += "specializationOf(" + specialization["prov:specificEntity"] + "," + specialization["prov:generalEntity"] + ")" + "\n";
+    });
+  if(derivations) 
+    derivations.forEach(function(derivation) {
+        prov += "wasDerivedFrom(" + derivation["prov:generatedEntity"] + "," + derivation["prov:usedEntity"] + ")" + "\n";
+    });
   prov += "endBundle " + "\n";
   prov += "endDocument" + "\n";
   callback(prov,"text/plain");
