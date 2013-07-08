@@ -3,12 +3,12 @@ var sys = require('sys')
 var exec = require('child_process').exec;
 var serialize = require('./provSerializer').serialize;
 
-function convert(giturl, serialization, callback) {
+/* Convert the git repository at giturl to PROV in the specified serialization.
+   RepositoryPath will be used to temporarily store the cloned repository on the server. 
+*/
+function convert(giturl, serialization, repositoryPath, callback) {
   // get the repository name. 
   var repository = giturl.substring(giturl.lastIndexOf('/')+1, giturl.lastIndexOf('.git'));
-  // This will be used to temporarily store the cloned repository. 
-  // TODO: make this different for every user to avoid conflicts, e.g. using a session id.
-  var repositoryPath = repository + "12345";
   // clone the git repository
   clone(giturl, repositoryPath, function(error) {
     if (error !== null){
@@ -27,7 +27,7 @@ function convert(giturl, serialization, callback) {
 }
 
 function clone(giturl, repositoryPath, callback) {
-  exec('git clone '+ giturl + ' ' + repositoryPath, { timeout : 5000 },function (error, stdout, stderr) {
+  exec('git clone '+ giturl + ' ' + repositoryPath, { timeout : 10000 },function (error, stdout, stderr) {
     if( error !== null ) { 
       callback(error);
     } else {

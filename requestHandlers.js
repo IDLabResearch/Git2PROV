@@ -6,7 +6,8 @@ function git2prov(request, response) {
   var query = url.parse(request.url, true).query;
   //console.log(query);
   if(query['giturl']){
-    git2provConverter.convert(query['giturl'], query['serialization'], function(prov, error, contentType) {
+    var repositoryPath = "temp/repositories/" + request.sessionID;
+    git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, function(prov, error, contentType) {
     //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
         response.writeHead(400, "Git repository could not be cloned.");//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
@@ -16,6 +17,7 @@ function git2prov(request, response) {
         response.write(prov);
         response.end();
       }
+      request.session.destroy();
     });
   }else{
     response.writeHead(400, "Missing one or more required parameters.");

@@ -1,12 +1,15 @@
 /* The HTTP server module */
-var http = require("http");
+var connect = require("connect");
 
 function start(port, route, handle) {
   function onRequest(request, response) {
     route(handle, request, response);
   }
   
-  http.createServer(onRequest).listen(port);
+  connect()
+    .use(connect.cookieParser())
+    .use(connect.session({secret: 'everything to prov'}))
+    .use(onRequest).listen(port);
   console.log("Server has started.");
 }
 
