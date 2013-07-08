@@ -114,12 +114,12 @@ function serializePROVN(prefix, prefixUrl, repository, entities, activities, age
 }
 
 /* Serialize the specified PROV-JSON object in PROV-O */
-function serializePROVO(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback){
+function serializePROVO(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback){
   callback("serialization unsupported","text/plain");//TODO: change to RDF
 }
 
 /* Serialize the specified PROV-JSON object in PROV-XML */
-function serializePROVXML(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback){
+function serializePROVXML(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback){
   callback("serialization unsupported","text/plain");//TODO: change to text/X
 }
 
