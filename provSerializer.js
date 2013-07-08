@@ -2,24 +2,24 @@
 
 
 /* Serialize the specified entries in the specified serialization (default: PROV-N) */
-function serialize(serialization, prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback){
+function serialize(serialization, prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback){
   switch(serialization) {
     case "PROV-JSON":
-      serializePROVJSON(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback);
+      serializePROVJSON(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback);
       break;
     case "PROV-O":
-      serializePROVO(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback);
+      serializePROVO(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback);
       break;
     case "PROV-XML":
-      serializePROVXML(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback);
+      serializePROVXML(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback);
       break;
     default:
-      serializePROVN(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback);
+      serializePROVN(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback);
   }
 }
 
 /* Serialize the specified entries as a PROV-JSON object */
-function serializePROVJSON(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback){
+function serializePROVJSON(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback){
   var bundlename = prefix + ":" + repository;
   var provObject = {
     "prefix" : {prefix:prefixUrl},
@@ -28,40 +28,37 @@ function serializePROVJSON(prefix, prefixUrl, repository, entities, activities, 
   };
   provObject["bundle"][bundlename] = {};
   if(entities) {
-    provObject["bundle"][bundlename]["entity"] = {};
-    entities.forEach(function(entity){
-      provObject["bundle"][bundlename]["entity"][entity] = {};
-    });
+    provObject["bundle"][bundlename]["entity"] = entities;
   }
   if(activities) {
-    provObject["bundle"][bundlename]["activity"] = {};
-    activities.forEach(function(activity){
-      provObject["bundle"][bundlename]["activity"][activity] = {};
-    });
+    provObject["bundle"][bundlename]["activity"] = activities;
   }
   if(agents) {
-    provObject["bundle"][bundlename]["agent"] = {};
-    agents.forEach(function(agent){
-      provObject["bundle"][bundlename]["agent"][agent] = {};
-    });
+    provObject["bundle"][bundlename]["agent"] = agents;
   }
   if(specializations) {
-    provObject["bundle"][bundlename]["specializationOf"] = {};
-    specializations.forEach(function(specialization){
-      provObject["bundle"][bundlename]["specializationOf"][specialization] = {};
-    });
+    provObject["bundle"][bundlename]["specializationOf"] = specializations;
   }
   if(derivations) {
-    provObject["bundle"][bundlename]["wasDerivedFrom"] = {};
-    derivations.forEach(function(derivation){
-      provObject["bundle"][bundlename]["wasDerivedFrom"][derivation] = {};
-    });
+    provObject["bundle"][bundlename]["wasDerivedFrom"] = derivations;
+  }
+  if(starts) {
+    provObject["bundle"][bundlename]["wasStartedBy"] = starts;
+  }
+  if(ends) {
+    provObject["bundle"][bundlename]["wasEndedBy"] = ends;
+  }
+  if(attributions) {
+    provObject["bundle"][bundlename]["wasAttributedTo"] = attributions;
+  }
+  if(associations) {
+    provObject["bundle"][bundlename]["wasAssociatedWith"] = associations;
   }
   callback(JSON.stringify(provObject, undefined, 2),"text/plain");
 }
 
 /* Serialize the specified PROV-JSON object in PROV-N */
-function serializePROVN(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, callback){
+function serializePROVN(prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback){
   //write everything to the result string
   var prov = "document" + "\n";
   prov += "prefix " + prefix + " <" + prefixUrl + ">" + "\n";

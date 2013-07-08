@@ -52,40 +52,79 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     var files = stdout.toString().split('\n');
     // For some reason, git log appends empty lines here and there. Let's fitler them out.
     files = files.filter(function(element, index, array) { return element !== ""; });
-    var entities = [];
-    var activities = [];
-    var agents = [];
-    var specializations = [];
-    var derivations = [];
+    // We store these assertions in the PROV-JSON format, so they need to be objects
+    var entities = {};
+    var activities = {};
+    var agents = {};
+    var specializations = {};
+    var derivations = {};
+    var starts = {};
+    var ends = {};
+    var attributions = {};
+    var associations = {};
     // Keep track of how many files have been processed
     var async_count = files.length;
     files.forEach(function(file) {
       // Because all identifiers need to be QNames in PROV, we need to get rid of the slashes
-      var entity = file.replace(/\//g,"-");
-      entities.push(entity);
+      var currentEntity = file.replace(/\//g,"-");
+      entities[currentEntity] = {};
       // Next, do a git log for each file to find out about all commits, authors, and the commit parents
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
-      exec('git --no-pager log --pretty=format:"'+file+',%H,%P,%an,%ad,%cn,%cd,%s" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
+      exec('git --no-pager log --pretty=format:"'+currentEntity+',%H,%P,%an,%ad,%cn,%cd,%s" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
         var lines = stdout.toString().split('\n');
         lines.forEach(function(line){
           var data = line.split(",");
-          var file = data[0];
+          var entity = data[0];
           var commit = data[1];
-          var parents = data[2];
+          var parents = data[2].split(" ");
           var authorname = data[3];
           var authordate = data[4];
           var committername = data[5];
           var committerdate = data[6];
           var subject = data[7];
-          console.log(file + " | Commit: "+ commit + " | Parents: " + parents + " | " + subject);
-          async_count--;
-          if(async_count == 0){
-            // Node.js is single-threaded, so don't worry, this always works
-            console.log("all files processed");
+          // Add the commit activity to the activities object
+          activities[commit] = {"prov:label" : subject};// No need to add the parents as well, since we will eventually loop over them anyway
+          starts[commit+"_start"] ={"prov:activity" : commit, "prov:time" : authordate};
+          ends[commit+"_end"] = {"prov:activity" : commit, "prov:time" : committerdate};
+          // Add the commit entities (files) to the entities, specializations and derivations object
+          entities[entity + "_" + commit] = {};
+          specializations[entity + "_" + commit + "_specialization"] = {"prov:generalEntity" : entity, "prov:specificEntity" : entity + "_" + commit};
+          parents.forEach(function(parent){
+            derivations[entity + "_" + commit + "_" + parent] = {
+              "prov:activity": commit,
+              "prov:generatedEntity": entity + "_" + commit,
+              "prov:usedEntity": entity + "_" + parent
+            };
+          });
+          // Add the agents to the stack of agents
+          agents[authorname] = {};
+          // The file is definitly attributed to the author
+          attributions[entity + "_" + commit + "_" + authorname] = {
+            "prov:entity" : entity + "_" + commit,
+            "prov:agent" : authorname,
+            "prov:type" : "authorship"
+          }
+          // And he/she is definitely associated with the commit activity
+          associations[commit + "_" + authorname] = {
+            "prov:activity" : commit,
+            "prov:agent" : authorname,
+            "prov:role" : "author",
+          }
+          agents[committername] = {};
+          // We can't say that the file was attributed to the committer, but we can associate the commit activity with him/her
+          associations[commit + "_" + committername] = {
+            "prov:activity" : commit,
+            "prov:agent" : committername,
+            "prov:role" : "committer",
           }
         });
-        console.log('----------------------------------------------');
+        async_count--;
+        if(async_count == 0){
+          // Node.js is single-threaded, so don't worry, this always works
+          //console.log("all files processed");
+          serialize(serialization, prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback)
+        }
       });
     });
   });
