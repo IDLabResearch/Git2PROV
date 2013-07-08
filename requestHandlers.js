@@ -11,7 +11,7 @@ function git2prov(request, response) {
     //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
         response.writeHead(400, "Git repository could not be cloned.");//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
-        response.write(error);
+        response.write(error.toString);
         response.end();
       } else {
         response.writeHead(200, {"Content-Type": contentType});//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
