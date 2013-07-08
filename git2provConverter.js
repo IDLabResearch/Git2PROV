@@ -67,23 +67,25 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
       exec('git --no-pager log --pretty=format:"'+file+',%H,%P,%an,%ad,%cn,%cd,%s" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
-        //console.log(stdout);
-        var data = stdout.split(",");
-        var file = data[0];
-        var commit = data[1];
-        var parents = data[2];
-        var authorname = data[3];
-        var authordate = data[4];
-        var authorname = data[5];
-        var committername = data[6];
-        var committerdate = data[7];
-        var subject = data[8];
-        console.log(file + " | Commit: "+ commit + " | Parents: " + parents + " | " + subject);
-        async_count--;
-        if(async_count == 0){
-          // Node.js is single-threaded, so don't worry, this always works
-          console.log("all files processed");
-        }
+        var lines = stdout.toString().split('\n');
+        lines.forEach(function(line){
+          var data = line.split(",");
+          var file = data[0];
+          var commit = data[1];
+          var parents = data[2];
+          var authorname = data[3];
+          var authordate = data[4];
+          var committername = data[5];
+          var committerdate = data[6];
+          var subject = data[7];
+          console.log(file + " | Commit: "+ commit + " | Parents: " + parents + " | " + subject);
+          async_count--;
+          if(async_count == 0){
+            // Node.js is single-threaded, so don't worry, this always works
+            console.log("all files processed");
+          }
+        });
+        console.log('----------------------------------------------');
       });
     });
   });
