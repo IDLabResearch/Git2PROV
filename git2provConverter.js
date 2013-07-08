@@ -37,10 +37,18 @@ function clone(giturl, repositoryPath, callback) {
 }
 
 /* We convert git concepts to PROV concepts as follows:
-  commit c ---> activity(c)
+  
+  commit c with subject s ---> activity(c, [prov:label="s"])
   file f   ---> entity(f)
-  author a ---> agent(a)
   file f in commit c ---> specializationOf(f_c, f)
+  file f in commit c and f2 in parent commit c2 ---> wasDerivedFrom(f2_c2, f_c, c)
+  author a ---> agent(a)
+               ---> wasAssociatedWith(c, a, [prov:role="author"])
+               ---> wasAttributedTo(f_c, a, [prov:type="authorship"])
+  committer ca ---> agent(ca)
+               ---> wasAssociatedWith(c, ca, [prov:role="committer"])
+  author date ad ---> wasStartedBy(c, -, -, ad)
+  commit date cd ---> wasEndedBy(c, -, -, cd)
 */
 function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, callback) {
   // determine a QName for the bundle
@@ -78,9 +86,11 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
           var entity = data[0];
           var commit = data[1];
           var parents = data[2].split(" ");
-          var authorname = data[3];
+          var authorname = data[3].replace(/ /g,"-");
+          var authorlabel = data[3];
           var authordate = data[4];
-          var committername = data[5];
+          var committername = data[5].replace(/ /g,"-");
+          var committerlabel = data[5];
           var committerdate = data[6];
           var subject = data[7];
           // Add the commit activity to the activities object
@@ -98,7 +108,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
             };
           });
           // Add the agents to the stack of agents
-          agents[authorname] = {};
+          agents[authorname] = {"prov:label" : authorlabel};
           // The file is definitly attributed to the author
           attributions[entity + "_" + commit + "_" + authorname] = {
             "prov:entity" : entity + "_" + commit,
@@ -111,7 +121,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
             "prov:agent" : authorname,
             "prov:role" : "author",
           }
-          agents[committername] = {};
+          agents[committername] = {"prov:label" : committerlabel};
           // We can't say that the file was attributed to the committer, but we can associate the commit activity with him/her
           if(associations[commit + "_" + committername]){
             associations[commit + "_" + committername]["prov:role"] += ", committer"

@@ -65,17 +65,17 @@ function serializePROVN(prefix, prefixUrl, repository, entities, activities, age
   prov += "bundle " + prefix + ":" + repository + "\n";
   for (var entity in entities) {
     if (entities.hasOwnProperty(entity)) {
-      prov += "entity(" + entity + ")" + "\n";
+      prov += "entity(" + entity + (entities[entity]["prov:label"]?", [prov:label=\""+entities[entity]["prov:label"]+"\"]":"") + ")" + "\n";
     }
   }
   for (var activity in activities) {
     if (activities.hasOwnProperty(activity)) {
-      prov += "activity(" + activity + ")" + "\n";
+      prov += "activity(" + activity + (activities[activity]["prov:label"]?", [prov:label=\""+activities[activity]["prov:label"]+"\"]":"") + ")" + "\n";
     }
   }
   for (var agent in agents) {
     if (agents.hasOwnProperty(agent)) {
-      prov += "agent(" + agent + ")" + "\n";
+      prov += "agent(" + agent + (agents[agent]["prov:label"]?", [prov:label=\""+agents[agent]["prov:label"]+"\"]":"") + ")" + "\n";
     }
   }
   for (var specialization in specializations) {
