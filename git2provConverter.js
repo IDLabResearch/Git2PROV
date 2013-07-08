@@ -113,10 +113,14 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
           }
           agents[committername] = {};
           // We can't say that the file was attributed to the committer, but we can associate the commit activity with him/her
-          associations[commit + "_" + committername] = {
-            "prov:activity" : commit,
-            "prov:agent" : committername,
-            "prov:role" : "committer",
+          if(associations[commit + "_" + committername]["prov:role"]){
+            associations[commit + "_" + committername]["prov:role"] += ", committer"
+          } else {
+            associations[commit + "_" + committername] = {
+              "prov:activity" : commit,
+              "prov:agent" : committername,
+              "prov:role" : "committer",
+            }
           }
         });
         async_count--;
