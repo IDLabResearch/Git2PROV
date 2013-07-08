@@ -52,7 +52,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     var files = stdout.toString().split('\n');
     // For some reason, git log appends empty lines here and there. Let's fitler them out.
     files = files.filter(function(element, index, array) { return element !== ""; });
-    // We store these assertions in the PROV-JSON format, so they need to be objects
+    // We store these assertions in the PROV-JSON format, so they need to be objects. PROV-JSON spec: http://www.w3.org/Submission/prov-json/
     var entities = {};
     var activities = {};
     var agents = {};

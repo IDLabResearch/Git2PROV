@@ -54,7 +54,7 @@ function serializePROVJSON(prefix, prefixUrl, repository, entities, activities, 
   if(associations) {
     provObject["bundle"][bundlename]["wasAssociatedWith"] = associations;
   }
-  callback(JSON.stringify(provObject, undefined, 2),"text/plain");
+  callback(JSON.stringify(provObject, undefined, 2),"text/plain");//TODO: change to text/json
 }
 
 /* Serialize the specified PROV-JSON object in PROV-N */
@@ -63,29 +63,54 @@ function serializePROVN(prefix, prefixUrl, repository, entities, activities, age
   var prov = "document" + "\n";
   prov += "prefix " + prefix + " <" + prefixUrl + ">" + "\n";
   prov += "bundle " + prefix + ":" + repository + "\n";
-  if(entities) 
-    entities.forEach(function(entity) {
-        prov += "entity(" + entity + ")" + "\n";
-    });
-  if(activities) 
-    activities.forEach(function(activity) {
-        prov += "activity(" + activity + ")" + "\n";
-    });
-  if(agents) 
-    agents.forEach(function(agent) {
-        prov += "agent(" + agent + ")" + "\n";
-    });
-  if(specializations) 
-    specializations.forEach(function(specialization) {
-        prov += "specializationOf(" + specialization["prov:specificEntity"] + "," + specialization["prov:generalEntity"] + ")" + "\n";
-    });
-  if(derivations) 
-    derivations.forEach(function(derivation) {
-        prov += "wasDerivedFrom(" + derivation["prov:generatedEntity"] + "," + derivation["prov:usedEntity"] + ")" + "\n";
-    });
+  for (var entity in entities) {
+    if (entities.hasOwnProperty(entity)) {
+      prov += "entity(" + entity + ")" + "\n";
+    }
+  }
+  for (var activity in activities) {
+    if (activities.hasOwnProperty(activity)) {
+      prov += "activity(" + activity + ")" + "\n";
+    }
+  }
+  for (var agent in agents) {
+    if (agents.hasOwnProperty(agent)) {
+      prov += "agent(" + agent + ")" + "\n";
+    }
+  }
+  for (var specialization in specializations) {
+    if (specializations.hasOwnProperty(specialization)) {
+      prov += "specializationOf(" + specializations[specialization]["prov:specificEntity"] + "," + specializations[specialization]["prov:generalEntity"] + ")" + "\n";
+    }
+  }
+  for (var derivation in derivations) {
+    if (derivations.hasOwnProperty(derivation)) {
+      prov += "wasDerivedFrom(" + derivations[derivation]["prov:generatedEntity"] + "," + derivations[derivation]["prov:usedEntity"] + ")" + "\n";
+    }
+  }
+  for (var start in starts) {
+    if (starts.hasOwnProperty(start)) {
+      prov += "wasStartedBy(" + starts[start]["prov:activity"] + ", -, -, " + starts[start]["prov:time"] + ")" + "\n";
+    }
+  }
+  for (var end in ends) {
+    if (ends.hasOwnProperty(end)) {
+      prov += "wasStartedBy(" + ends[end]["prov:activity"] + ", -, -, " + ends[end]["prov:time"] + ")" + "\n";
+    }
+  }
+  for (var attribution in attributions) {
+    if (attributions.hasOwnProperty(attribution)) {
+      prov += "wasAttributedTo(" + attributions[attribution]["prov:entity"] + ", " + attributions[attribution]["prov:agent"] + ", [prov:type=\"" + attributions[attribution]["prov:type"] + "\"])" + "\n";
+    }
+  }
+  for (var association in associations) {
+    if (associations.hasOwnProperty(association)) {
+      prov += "wasAssociatedWith(" + associations[association]["prov:activity"] + ", " + associations[association]["prov:agent"] + ", [prov:role=\"" + associations[association]["prov:role"] + "\"])" + "\n";
+    }
+  }
   prov += "endBundle " + "\n";
   prov += "endDocument" + "\n";
-  callback(prov,"text/plain");
+  callback(prov,"text/plain");//TODO: change to text/prov-notation
 }
 
 /* Serialize the specified PROV-JSON object in PROV-O */
