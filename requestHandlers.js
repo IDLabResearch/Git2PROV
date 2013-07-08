@@ -10,8 +10,7 @@ function git2prov(request, response) {
     git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, function(prov, error, contentType) {
     //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
-        response.writeHead(400, "Git repository could not be cloned.");//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
-        response.write(error.toString);
+        response.writeHead(400, "Git repository could not be cloned." + error);
         response.end();
       } else {
         response.writeHead(200, {"Content-Type": contentType});//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
