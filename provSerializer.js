@@ -20,7 +20,7 @@ function serialize(serialization, prefixes, repository, entities, activities, ag
 
 /* Serialize the specified entries as a PROV-JSON object */
 function serializePROVJSON(prefixes, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback){
-  var bundlename = prefix + ":" + repository;
+  var bundlename = "repository:" + repository;
   var provObject = {};
   provObject["prefix"] = prefixes;
   provObject["bundle"] = {};
