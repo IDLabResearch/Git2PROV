@@ -6,7 +6,7 @@ var serialize = require('./provSerializer').serialize;
 /* Convert the git repository at giturl to PROV in the specified serialization.
    RepositoryPath will be used to temporarily store the cloned repository on the server. 
 */
-function convert(giturl, serialization, repositoryPath, callback) {
+function convert(giturl, serialization, repositoryPath, requestUrl, callback) {
   // get the repository name. 
   var repository = giturl.substring(giturl.lastIndexOf('/')+1, giturl.lastIndexOf('.git'));
   // clone the git repository
@@ -17,7 +17,7 @@ function convert(giturl, serialization, repositoryPath, callback) {
       exec("rm -rf " + repositoryPath);
     } else {
       // convert the information from the git url to PROV
-      convertRepositoryToProv(giturl, repository, repositoryPath, serialization, function(prov,contentType){
+      convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, function(prov,contentType){
         callback(prov,null,contentType);
         // cleanup - delete the repository
         exec("rm -rf " + repositoryPath);
@@ -50,10 +50,12 @@ function clone(giturl, repositoryPath, callback) {
   author date ad ---> wasStartedBy(c, -, -, ad)
   commit date cd ---> wasEndedBy(c, -, -, cd)
 */
-function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, callback) {
+function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, callback) {
   // determine a QName for the bundle
-  var prefix = giturl.substring(giturl.indexOf("://")+3,giturl.indexOf('.'));
-  var prefixUrl = giturl.substring(0,giturl.lastIndexOf('/')+1);
+  var prefixes = {};
+  prefixes["repository"] = giturl.substring(0,giturl.lastIndexOf('/')+1);
+  var urlprefix = "result";
+  prefixes[urlprefix] = requestUrl + "#";
   
   // first, do a git log to find out about all files that ever existed in the repository
   exec('git --no-pager log --pretty=format: --name-only --diff-filter=A', { cwd : repositoryPath }, function (error, stdout, stderr) {
@@ -75,7 +77,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     files.forEach(function(file) {
       // Because all identifiers need to be QNames in PROV, we need to get rid of the slashes
       var currentEntity = file.replace(/\//g,"-");
-      entities[currentEntity] = {};
+      entities[urlprefix + ":" + currentEntity] = {};
       // Next, do a git log for each file to find out about all commits, authors, and the commit parents
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
@@ -94,41 +96,41 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
           var committerdate = data[6];
           var subject = data[7];
           // Add the commit activity to the activities object
-          activities[commit] = {"prov:label" : subject};// No need to add the parents as well, since we will eventually loop over them anyway
-          starts[commit+"_start"] ={"prov:activity" : commit, "prov:time" : authordate};
-          ends[commit+"_end"] = {"prov:activity" : commit, "prov:time" : committerdate};
+          activities[urlprefix + ":" + commit] = {"prov:label" : subject};// No need to add the parents as well, since we will eventually loop over them anyway
+          starts[urlprefix + ":" + commit+"_start"] ={"prov:activity" : urlprefix + ":" + commit, "prov:time" : authordate};
+          ends[urlprefix + ":" + commit+"_end"] = {"prov:activity" : urlprefix + ":" + commit, "prov:time" : committerdate};
           // Add the commit entities (files) to the entities, specializations and derivations object
-          entities[entity + "_" + commit] = {};
-          specializations[entity + "_" + commit + "_specialization"] = {"prov:generalEntity" : entity, "prov:specificEntity" : entity + "_" + commit};
+          entities[urlprefix + ":" + entity + "_" + commit] = {};
+          specializations[urlprefix + ":" + entity + "_" + commit + "_specialization"] = {"prov:generalEntity" : urlprefix + ":" + entity, "prov:specificEntity" : urlprefix + ":" + entity + "_" + commit};
           parents.forEach(function(parent){
-            derivations[entity + "_" + commit + "_" + parent] = {
-              "prov:activity": commit,
-              "prov:generatedEntity": entity + "_" + commit,
-              "prov:usedEntity": entity + "_" + parent
+            derivations[urlprefix + ":" + entity + "_" + commit + "_" + parent] = {
+              "prov:activity": urlprefix + ":" + commit,
+              "prov:generatedEntity": urlprefix + ":" + entity + "_" + commit,
+              "prov:usedEntity": urlprefix + ":" + entity + "_" + parent
             };
           });
           // Add the agents to the stack of agents
-          agents[authorname] = {"prov:label" : authorlabel};
+          agents[urlprefix + ":" + authorname] = {"prov:label" : authorlabel};
           // The file is definitly attributed to the author
-          attributions[entity + "_" + commit + "_" + authorname] = {
-            "prov:entity" : entity + "_" + commit,
-            "prov:agent" : authorname,
+          attributions[urlprefix + ":" + entity + "_" + commit + "_" + authorname] = {
+            "prov:entity" : urlprefix + ":" + entity + "_" + commit,
+            "prov:agent" : urlprefix + ":" + authorname,
             "prov:type" : "authorship"
           }
           // And he/she is definitely associated with the commit activity
-          associations[commit + "_" + authorname] = {
-            "prov:activity" : commit,
-            "prov:agent" : authorname,
+          associations[urlprefix + ":" + commit + "_" + authorname] = {
+            "prov:activity" : urlprefix + ":" + commit,
+            "prov:agent" : urlprefix + ":" + authorname,
             "prov:role" : "author",
           }
-          agents[committername] = {"prov:label" : committerlabel};
+          agents[urlprefix + ":" + committername] = {"prov:label" : committerlabel};
           // We can't say that the file was attributed to the committer, but we can associate the commit activity with him/her
-          if(associations[commit + "_" + committername]){
-            associations[commit + "_" + committername]["prov:role"] += ", committer"
+          if(associations[urlprefix + ":" + commit + "_" + committername]){
+            associations[urlprefix + ":" + commit + "_" + committername]["prov:role"] += ", committer"
           } else {
-            associations[commit + "_" + committername] = {
-              "prov:activity" : commit,
-              "prov:agent" : committername,
+            associations[urlprefix + ":" + commit + "_" + committername] = {
+              "prov:activity" : urlprefix + ":" + commit,
+              "prov:agent" : urlprefix + ":" + committername,
               "prov:role" : "committer",
             }
           }
@@ -137,7 +139,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
         if(async_count == 0){
           // Node.js is single-threaded, so don't worry, this always works
           //console.log("all files processed");
-          serialize(serialization, prefix, prefixUrl, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback)
+          serialize(serialization, prefixes, repository, entities, activities, agents, specializations, derivations, starts, ends, attributions, associations, callback)
         }
       });
     });
