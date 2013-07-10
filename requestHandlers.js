@@ -5,8 +5,10 @@ var git2provConverter = require("./git2provConverter");
 function git2prov(request, response) {
   var query = url.parse(request.url, true).query;
   var options = {};
-  if(query['options'])
-    options = JSON.parse(query['options']);
+  if(query['ignore'])
+    options['ignore'] = query['ignore'];
+  if(query['shortHashes'])
+    options['shortHashes'] = query['shortHashes'];
   if(query['giturl']){
     var repositoryPath = "temp/repositories/" + request.sessionID;
     git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, "http://" + request.headers.host + request.url, options, function(prov, error, contentType) {
