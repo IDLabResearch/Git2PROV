@@ -7,7 +7,7 @@ function git2prov(request, response) {
   //console.log(query);
   if(query['giturl']){
     var repositoryPath = "temp/repositories/" + request.sessionID;
-    git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, request.url, function(prov, error, contentType) {
+    git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, "http://" + request.headers.host + request.url, function(prov, error, contentType) {
     //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
         response.writeHead(400, "Git repository could not be cloned." + error);
