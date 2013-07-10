@@ -71,6 +71,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     files = files.filter(function(element, index, array) { return element !== ""; });
     // We store these assertions in the PROV-JSON format, so they need to be objects. PROV-JSON spec: http://www.w3.org/Submission/prov-json/
     var provObject = {};
+    provObject.prefixes = prefixes;
     provObject.entities = {};
     provObject.agents = {};
     provObject.activities = {};
