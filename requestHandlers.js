@@ -4,10 +4,12 @@ var git2provConverter = require("./git2provConverter");
 
 function git2prov(request, response) {
   var query = url.parse(request.url, true).query;
-  //console.log(query);
+  var options = {};
+  if(query['options'])
+    options = JSON.parse(query['options']);
   if(query['giturl']){
     var repositoryPath = "temp/repositories/" + request.sessionID;
-    git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, "http://" + request.headers.host + request.url, function(prov, error, contentType) {
+    git2provConverter.convert(query['giturl'], query['serialization'], repositoryPath, "http://" + request.headers.host + request.url, options, function(prov, error, contentType) {
     //console.log("prov: " + prov + " error: " + error);
       if (error !== null){
         response.writeHead(400, "Git repository could not be cloned." + error);

@@ -6,7 +6,7 @@ var serialize = require('./provSerializer').serialize;
 /* Convert the git repository at giturl to PROV in the specified serialization.
    RepositoryPath will be used to temporarily store the cloned repository on the server. 
 */
-function convert(giturl, serialization, repositoryPath, requestUrl, callback) {
+function convert(giturl, serialization, repositoryPath, requestUrl, options, callback) {
   // get the repository name. 
   var repository = giturl.substring(giturl.lastIndexOf('/')+1, giturl.lastIndexOf('.git'));
   // clone the git repository
@@ -17,7 +17,7 @@ function convert(giturl, serialization, repositoryPath, requestUrl, callback) {
       exec("rm -rf " + repositoryPath);
     } else {
       // convert the information from the git url to PROV
-      convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, function(prov,contentType){
+      convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, options, function(prov,contentType){
         callback(prov,null,contentType);
         // cleanup - delete the repository
         exec("rm -rf " + repositoryPath);
@@ -57,7 +57,11 @@ function clone(giturl, repositoryPath, callback) {
     ---> wasInformedBy(c, c2)
   file f_c deleted in commit c ---> wasInvalidatedBy(f_c, c, authordate)
 */
-function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, callback) {
+function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, options, callback) {
+  // set the corresponding variables according to the options
+  var commitHash = options['shortHashes']?"%h":"%H";
+  var parentHash = options['shortHashes']?"%p":"%P";
+  var ignore = options['ignore']?options['ignore']:[];
   // determine a QName for the bundle
   var prefixes = {};
   prefixes["repository"] = giturl.substring(0,giturl.lastIndexOf('/')+1);
@@ -94,7 +98,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
       // Next, do a git log for each file to find out about all commits, authors, the commit parents, and the modification type
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject, name-status
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
-      exec('git --no-pager log --name-status --pretty=format:"'+currentEntity+',%H,%P,%an,%ad,%cn,%cd,%s,&" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
+      exec('git --no-pager log --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
         var output = stdout.toString().replace(/&\n/g,'');
         var lines = output.split('\n');
         // For some reason, git log appends empty lines here and there. Let's fitler them out.
@@ -201,7 +205,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
         if(async_count == 0){
           // Node.js is single-threaded, so don't worry, this always works
           //console.log("all files processed");
-          serialize(serialization, provObject, repository, callback)
+          serialize(serialization, provObject, repository, ignore, callback)
         }
       });
     });
