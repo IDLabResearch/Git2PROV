@@ -41,8 +41,6 @@ function clone(giturl, repositoryPath, callback) {
   
   commit c with subject s ---> activity(c, [prov:label="s"])
   file f   ---> entity(f)
-  file f in commit c ---> specializationOf(f_c, f)
-  file f in commit c and f2 in parent commit c2 ---> wasDerivedFrom(f2_c2, f_c, c)
   author a ---> agent(a)
                ---> wasAssociatedWith(c, a, [prov:role="author"])
                ---> wasAttributedTo(f_c, a, [prov:type="authorship"])
@@ -50,6 +48,14 @@ function clone(giturl, repositoryPath, callback) {
                ---> wasAssociatedWith(c, ca, [prov:role="committer"])
   author date ad ---> wasStartedBy(c, -, -, ad)
   commit date cd ---> wasEndedBy(c, -, -, cd)
+  file f in commit c ---> specializationOf(f_c, f)
+  file f_c added in commit c ---> wasGeneratedBy(f_c, c, authordate)
+  file f_c in commit c modified f_c2 from parent commit c2 
+    ---> wasGeneratedBy(f_c, c, authordate)
+    ---> used(c, f_c2, authordate)
+    ---> wasDerivedFrom(f_c, f_c2, c)
+    ---> wasInformedBy(c, c2)
+  file f_c deleted in commit c ---> wasInvalidatedBy(f_c, c, authordate)
 */
 function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, callback) {
   // determine a QName for the bundle
@@ -66,15 +72,17 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     // We store these assertions in the PROV-JSON format, so they need to be objects. PROV-JSON spec: http://www.w3.org/Submission/prov-json/
     var provObject = {};
     provObject.entities = {};
-    provObject.activities = {};
     provObject.agents = {};
-    provObject.specializations = {};
-    provObject.derivations = {};
+    provObject.activities = {};
     provObject.starts = {};
     provObject.ends = {};
     provObject.attributions = {};
     provObject.associations = {};
+    provObject.communications = {};
+    provObject.specializations = {};
+    provObject.usages = {};
     provObject.generations = {};
+    provObject.derivations = {};
     provObject.invalidations = {};
     // Keep track of how many files have been processed
     var async_count = files.length;
@@ -96,6 +104,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
           var data = line.split(",");
           var entity = data[0];
           var commit = data[1];
+          var commitEntity = entity + "_" + commit;
           var parents = data[2].split(" ");
           var authorname = data[3].replace(/ /g,"-");
           var authorlabel = data[3];
@@ -110,55 +119,77 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
           provObject.starts[urlprefix + ":" + commit+"_start"] ={"prov:activity" : urlprefix + ":" + commit, "prov:time" : authordate};
           provObject.ends[urlprefix + ":" + commit+"_end"] = {"prov:activity" : urlprefix + ":" + commit, "prov:time" : committerdate};
           // Add the commit entities (files) to the entities, specializations and derivations object
-          provObject.entities[urlprefix + ":" + entity + "_" + commit] = {};
-          provObject.specializations[urlprefix + ":" + entity + "_" + commit + "_specialization"] = {"prov:generalEntity" : urlprefix + ":" + entity, "prov:specificEntity" : urlprefix + ":" + entity + "_" + commit};
+          provObject.entities[urlprefix + ":" + commitEntity] = {};
+          provObject.specializations[urlprefix + ":" + commitEntity + "_spec"] = {"prov:generalEntity" : urlprefix + ":" + entity, "prov:specificEntity" : urlprefix + ":" + commitEntity};
           switch(modificationType){
             case "D":
             // The file was deleted in this commit  
-              provObject.invalidations[urlprefix + ":" + entity + "_" + commit + "_inv"] = {
-                "prov:entity": urlprefix + ":" + entity + "_" + commit,
+              provObject.invalidations[urlprefix + ":" + commitEntity + "_inv"] = {
+                "prov:entity": urlprefix + ":" + commitEntity,
                 "prov:activity": urlprefix + ":" + commit,
                 "prov:time": authordate,
               }
+              break;
             case "A":
             // The file was added in this commit  
-              provObject.generations[urlprefix + ":" + entity + "_" + commit + "_gen"] = {
-                "prov:entity": urlprefix + ":" + entity + "_" + commit,
+              provObject.generations[urlprefix + ":" + commitEntity + "_gen"] = {
+                "prov:entity": urlprefix + ":" + commitEntity,
                 "prov:activity": urlprefix + ":" + commit,
                 "prov:time": authordate,
               }
+              break;
             default:
             // The file was modified in this commit
+              var generation = urlprefix + ":" + commitEntity + "_gen";
+              provObject.generations[generation] = {
+                "prov:activity": urlprefix + ":" + commit,
+                "prov:entity": urlprefix + ":" + commitEntity,
+                "prov:time": authordate,
+              };
               parents.forEach(function(parent){
                 if(parent !== ""){
-                  provObject.derivations[urlprefix + ":" + entity + "_" + commit + "_" + parent] = {
+                  var parentEntity = entity + "_" + parent;
+                  var usage = urlprefix + ":" + parentEntity + "_" + commit + "_use";
+                  provObject.usages[usage] = {
                     "prov:activity": urlprefix + ":" + commit,
-                    "prov:generatedEntity": urlprefix + ":" + entity + "_" + commit,
-                    "prov:usedEntity": urlprefix + ":" + entity + "_" + parent
+                    "prov:entity": urlprefix + ":" + parentEntity,
+                    "prov:time": authordate,
+                  };
+                  provObject.derivations[urlprefix + ":" + commitEntity + "_" + parent + "_der"] = {
+                    "prov:activity": urlprefix + ":" + commit,
+                    "prov:generatedEntity": urlprefix + ":" + commitEntity,
+                    "prov:usedEntity": urlprefix + ":" + parentEntity,
+                    "prov:generation": generation,
+                    "prov:usage": usage
+                  };
+                  provObject.communications[urlprefix + ":" + commit + "_" + parent + "_comm"] = {
+                    "prov:informant": urlprefix + ":" + parent,
+                    "prov:informed": commit
                   };
                 }
               });
+              break;
           }
           // Add the agents to the stack of agents
           provObject.agents[urlprefix + ":" + authorname] = {"prov:label" : authorlabel};
           // The file is definitly attributed to the author
-          provObject.attributions[urlprefix + ":" + entity + "_" + commit + "_" + authorname] = {
-            "prov:entity" : urlprefix + ":" + entity + "_" + commit,
+          provObject.attributions[urlprefix + ":" + entity + "_" + commit + "_" + authorname + "_attr"] = {
+            "prov:entity" : urlprefix + ":" + commitEntity,
             "prov:agent" : urlprefix + ":" + authorname,
             "prov:type" : "authorship"
           }
           // And he/she is definitely associated with the commit activity
-          provObject.associations[urlprefix + ":" + commit + "_" + authorname] = {
+          provObject.associations[urlprefix + ":" + commit + "_" + authorname + "_assoc"] = {
             "prov:activity" : urlprefix + ":" + commit,
             "prov:agent" : urlprefix + ":" + authorname,
             "prov:role" : "author",
           }
           provObject.agents[urlprefix + ":" + committername] = {"prov:label" : committerlabel};
           // We can't say that the file was attributed to the committer, but we can associate the commit activity with him/her
-          if(provObject.associations[urlprefix + ":" + commit + "_" + committername]){
-            provObject.associations[urlprefix + ":" + commit + "_" + committername]["prov:role"] += ", committer"
+          if(provObject.associations[urlprefix + ":" + commit + "_" + committername + "_assoc"]){
+            provObject.associations[urlprefix + ":" + commit + "_" + committername + "_assoc"]["prov:role"] += ", committer"
           } else {
-            provObject.associations[urlprefix + ":" + commit + "_" + committername] = {
+            provObject.associations[urlprefix + ":" + commit + "_" + committername + "_assoc"] = {
               "prov:activity" : urlprefix + ":" + commit,
               "prov:agent" : urlprefix + ":" + committername,
               "prov:role" : "committer",
