@@ -94,13 +94,16 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
     // Keep track of how many files have been processed
     var async_count = files.length;
     files.forEach(function(file) {
+      //console.log('Processing ' + file);
       // Because all identifiers need to be QNames in PROV, and we need valid turtle as well, we need to get rid of the slashes and dots
       var currentEntity = file.replace(/[\/.]/g,"-");
       provObject.entities[urlprefix + ":" + currentEntity] = {"prov:label" : file};
       // Next, do a git log for each file to find out about all commits, authors, the commit parents, and the modification type
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject, name-status
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
-      exec('git --no-pager log --date=iso --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
+      var logcmd = 'git --no-pager log --date=iso --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file ;
+      console.log(logcmd);
+      exec( logcmd, { cwd : repositoryPath }, function (error, stdout, stderr) {
         var output = stdout.toString().replace(/&\n/g,'');
         var lines = output.split('\n');
         // For some reason, git log appends empty lines here and there. Let's fitler them out.
