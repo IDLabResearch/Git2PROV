@@ -10,6 +10,7 @@ function start(port, route, handle) {
     .use(connect.cookieParser())
     .use(connect.session({secret: 'everything to prov'}))
     .use(onRequest).listen(port);
+    
   console.log("Server has started.");
 }
 

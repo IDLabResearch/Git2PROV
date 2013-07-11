@@ -1,5 +1,6 @@
 /* This module contains the handlers for the incoming requests */
 var url = require("url");
+var fs = require('fs');
 var git2provConverter = require("./git2provConverter");
 
 function git2prov(request, response) {
@@ -17,7 +18,7 @@ function git2prov(request, response) {
         response.writeHead(400, "Git repository could not be cloned." + error);
         response.end();
       } else {
-        response.writeHead(200, {"Content-Type": contentType});//for convenience and in-browser viewing, this is text/plain. TODO: make text/provenance-notation
+        response.writeHead(200, {"Content-Type": contentType});
         response.write(prov);
         response.end();
       }
@@ -29,4 +30,19 @@ function git2prov(request, response) {
   }
 }
 
+function webpage(request, response) {
+  fs.readFile('./public_html/git2prov/index.html', function (err, data) {
+    if (err) {
+      response.writeHead(404, "Not found.");
+      response.end();
+    }else{
+      index = data;
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(index);
+      response.end();
+    }
+  });
+}
+
 exports.git2prov = git2prov;
+exports.webpage = webpage;
