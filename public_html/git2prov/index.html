@@ -41,12 +41,9 @@
   </div>
 </div>
  
-<script>
-    $('#header-translator').addClass("active");
-</script>    
 
-    <section class="round">
-      <div class="span12 row-fluid">
+<section class="round">
+  <div class="span12 row-fluid">
 	<div class="span8" style="text-align:center;margin-top:80px;margin-bottom:50px">
 	  <form action="http://localhost:8905/git2prov" method="get" enctype="multipart/form-data">
 	    <style type="text/css">
@@ -57,31 +54,40 @@
 	    <div style="text-align:left;">
 	      <table style="margin-left: auto; margin-right: auto;">
 		
+
 		<tr>
-		  <td>Enter a URL of a Git Repo:         </td>
-		  <td>
- 
-		    
+		  <td>Enter a URL of a Git Repo:  </td>
+
+      <td>
 		    <div class="input-append btn-group">
-		      <input id="giturl" type="text" name="url" class="input-large" style="width:300px; "  />
+		      <input id="giturl" type="text" name="giturl" class="input-large" style="width:300px; "  />
 		      
 		      <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-			<span class="caret"></span>
+			       <span class="caret"></span>
 		      </a> 
 		      
 		      
 		      <ul class="dropdown-menu">
-			<li>Examples</li>
-			<li><a href="#" onclick="updateURLInputBox('https://github.com/tdn/SMIF-Mozaiek.git')">
-			    <i class="icon-ok"></i> Mozaik</a>
-			</li>
-			<li><a href="#" onclick="updateURLInputBox('https://github.com/lucmoreau/ProvToolbox.git')">
-			    <i class="icon-ok"></i> ProvToolbox</a>
-			</li>
+			     <li>Examples</li>
+			     <li><a href="#" onclick="updateURLInputBox('https://github.com/tdn/SMIF-Mozaiek.git')">
+			       <i class="icon-ok"></i> Mozaik</a>
+			     </li>
+			     <li><a href="#" onclick="updateURLInputBox('https://github.com/lucmoreau/ProvToolbox.git')">
+			       <i class="icon-ok"></i> ProvToolbox</a>
+			     </li>
 		      </ul>
 		    </div>
 		  </td>
-		</tr>
+
+             <td rowspan="3">
+                    <input type="submit"   value="PROV-JSON"   name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:120px; "/><br>
+                    <input type="submit"   value="PROV-RDF"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:120px; "/><br>
+                    <input type="submit"   value="PROV-N"  name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:120px; "/><br>
+                    <input type="submit"   value="PROV-O" name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:120px; "/><br>
+                    <input type="submit"   value="SVG"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:120px; "/><br>
+                </td>
+
+		    </tr>
 		
 	      </table>
 	    </div>
