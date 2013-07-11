@@ -1,5 +1,9 @@
 Make sure you have node.js and git installed and in the system PATH variable.
 
+Then you need to run the following commands:
+	npm install connect
+	npm install n3
+
 To execute, use the following command:
     node index.js
     
