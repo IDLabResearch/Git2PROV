@@ -17,7 +17,7 @@ function convert(giturl, serialization, repositoryPath, requestUrl, options, cal
       exec("rm -rf " + repositoryPath);
     } else {
       // convert the information from the git url to PROV
-      convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, options, function(prov,contentType){
+      convertRepositoryToProv(repositoryPath, serialization, requestUrl, options, function(prov,contentType){
         callback(prov,null,contentType);
         // cleanup - delete the repository
         exec("rm -rf " + repositoryPath);
@@ -57,16 +57,16 @@ function clone(giturl, repositoryPath, callback) {
     ---> wasInformedBy(c, c2)
   file f_c deleted in commit c ---> wasInvalidatedBy(f_c, c, authordate)
 */
-function convertRepositoryToProv(giturl, repository, repositoryPath, serialization, requestUrl, options, callback) {
+function convertRepositoryToProv(repositoryPath, serialization, requestUrl, options, callback) {
   // set the corresponding variables according to the options
   var commitHash = options['shortHashes']?"%h":"%H";
   var parentHash = options['shortHashes']?"%p":"%P";
   var ignore = options['ignore']?options['ignore']:[];
   // determine a QName for the bundle
   var prefixes = {};
-  prefixes["repository"] = giturl.substring(0,giturl.lastIndexOf('/')+1);
   var urlprefix = "result";
   prefixes[urlprefix] = requestUrl + "#";
+  prefixes["fullResult"] = requestUrl.substring(0,requestUrl.indexOf('&')) + "&serialization=" + serialization + "#";
   
   // first, do a git log to find out about all files that ever existed in the repository
   exec('git --no-pager log --pretty=format: --name-only --diff-filter=A', { cwd : repositoryPath }, function (error, stdout, stderr) {
@@ -76,6 +76,8 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     // We store these assertions in the PROV-JSON format, so they need to be objects. PROV-JSON spec: http://www.w3.org/Submission/prov-json/
     var provObject = {};
     provObject.prefixes = prefixes;
+    provObject.bundle = urlprefix + ":provenance";
+    provObject.alternateBundle = "fullResult:provenance";
     provObject.entities = {};
     provObject.agents = {};
     provObject.activities = {};
@@ -92,13 +94,13 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
     // Keep track of how many files have been processed
     var async_count = files.length;
     files.forEach(function(file) {
-      // Because all identifiers need to be QNames in PROV, we need to get rid of the slashes
-      var currentEntity = file.replace(/\//g,"-");
-      provObject.entities[urlprefix + ":" + currentEntity] = {};
+      // Because all identifiers need to be QNames in PROV, and we need valid turtle as well, we need to get rid of the slashes and dots
+      var currentEntity = file.replace(/[\/.]/g,"-");
+      provObject.entities[urlprefix + ":" + currentEntity] = {"prov:label" : file};
       // Next, do a git log for each file to find out about all commits, authors, the commit parents, and the modification type
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject, name-status
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
-      exec('git --no-pager log --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
+      exec('git --no-pager log --date=iso --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file, { cwd : repositoryPath }, function (error, stdout, stderr) {
         var output = stdout.toString().replace(/&\n/g,'');
         var lines = output.split('\n');
         // For some reason, git log appends empty lines here and there. Let's fitler them out.
@@ -113,10 +115,10 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
           var parents = data[2].split(" ");
           var authorname = data[3].replace(/ /g,"-");
           var authorlabel = data[3];
-          var authordate = data[4];
+          var authordate = new Date(data[4]).toISOString();
           var committername = data[5].replace(/ /g,"-");
           var committerlabel = data[5];
-          var committerdate = data[6];
+          var committerdate = new Date(data[6]).toISOString();
           var subject = data[7];
           var modificationType = data[8];
           // Add the commit activity to the activities object
@@ -169,7 +171,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
                   };
                   provObject.communications[urlprefix + ":" + commit + "_" + parent + "_comm"] = {
                     "prov:informant": urlprefix + ":" + parent,
-                    "prov:informed": commit
+                    "prov:informed": urlprefix + ":" + commit
                   };
                 }
               });
@@ -205,7 +207,7 @@ function convertRepositoryToProv(giturl, repository, repositoryPath, serializati
         if(async_count == 0){
           // Node.js is single-threaded, so don't worry, this always works
           //console.log("all files processed");
-          serialize(serialization, provObject, repository, ignore, callback)
+          serialize(serialization, provObject, ignore, callback)
         }
       });
     });
