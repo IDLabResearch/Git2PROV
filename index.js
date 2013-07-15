@@ -7,4 +7,7 @@ var handle = {};
 handle["/git2prov/index.html"] = requestHandlers.webpage;
 handle["/git2prov"] = requestHandlers.git2prov;
 
-server.start(8905, router.route, handle);
+if(process.argv[2])
+  server.start(parseInt(process.argv[2]), router.route, handle);
+else
+  console.log("Please specify a port number");
