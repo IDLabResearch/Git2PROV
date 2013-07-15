@@ -1,0 +1,16 @@
+document
+  prefix ex <http://example.org/>
+  
+  entity(ex:git2prov_webpage)
+  agent(ex:tdn, [prov:type="prov:Person", prov:label="Tom De Nies"])
+  agent(ex:mmlab, [prov:type="prov:Organization", prov:label="Ghent University - iMinds - MMlab"])
+  agent(ex:ruben, [prov:type="prov:Person", prov:label="Ruben Verborgh"])
+  agent(ex:sme340, [prov:type="prov:Person", prov:label="Sara Magliacane"])
+  agent(ex:vu, [prov:type="prov:Organization", prov:label="VU University Amsterdam - Data2Semantics])
+  wasAttributedTo(ex:git2prov_webpage, ex:tdn)
+  actedOnBehalfOf(ex:tdn, ex:mmlab)
+  wasAttributedTo(ex:git2prov_webpage, ex:ruben)
+  actedOnBehalfOf(ex:ruben, ex:mmlab)
+  wasAttributedTo(ex:git2prov_webpage, ex:sme340)
+  actedOnBehalfOf(ex:sme340, ex:vu)
+endDocument
