@@ -102,7 +102,7 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject, name-status
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
       var logcmd = 'git --no-pager log --date=iso --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file ;
-      console.log(logcmd);
+      //console.log(logcmd);
       exec( logcmd, { cwd : repositoryPath }, function (error, stdout, stderr) {
         var output = stdout.toString().replace(/&\n/g,'');
         var lines = output.split('\n');

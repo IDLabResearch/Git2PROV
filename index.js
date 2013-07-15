@@ -4,7 +4,6 @@ var router = require("./router");
 var requestHandlers = require("./requestHandlers");
 
 var handle = {};
-handle["/git2prov/index.html"] = requestHandlers.webpage;
 handle["/git2prov"] = requestHandlers.git2prov;
 
 if(process.argv[2])

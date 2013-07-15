@@ -31,19 +31,4 @@ function git2prov(request, response) {
   }
 }
 
-function webpage(request, response) {
-  fs.readFile('./public_html/git2prov/index.html', function (err, data) {
-    if (err) {
-      response.writeHead(404, "Not found.");
-      response.end();
-    }else{
-      index = data;
-      response.writeHead(200, {"Content-Type": "text/html"});
-      response.write(index);
-      response.end();
-    }
-  });
-}
-
 exports.git2prov = git2prov;
-exports.webpage = webpage;
