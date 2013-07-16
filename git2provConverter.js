@@ -93,7 +93,7 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
     provObject.invalidations = {};
     // Keep track of how many files have been processed
     var async_count = files.length;
-    files.forEach(function(file) {
+    var logCmds = files.map(function(file) {
       //console.log('Processing ' + file);
       // Because all identifiers need to be QNames in PROV, and we need valid turtle as well, we need to get rid of the slashes and dots
       var currentEntity = file.replace(/[\/.]/g,"-");
@@ -101,8 +101,10 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
       // Next, do a git log for each file to find out about all commits, authors, the commit parents, and the modification type
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject, name-status
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
-      var logcmd = 'git --no-pager log --date=iso --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file ;
-      //console.log(logcmd);
+        return 'git --no-pager log --date=iso --name-status --pretty=format:"'+currentEntity+','+commitHash+','+parentHash+',%an,%ad,%cn,%cd,%s,&" -- ' + file ;
+    });
+    executeLogCmd(logCmds.pop());
+    function executeLogCmd(logcmd) {
       exec( logcmd, { cwd : repositoryPath }, function (error, stdout, stderr) {
         var output = stdout.toString().replace(/&\n/g,'');
         var lines = output.split('\n');
@@ -206,14 +208,12 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
             }
           }
         });
-        async_count--;
-        if(async_count == 0){
-          // Node.js is single-threaded, so don't worry, this always works
-          //console.log("all files processed");
+        if (logCmds.length)
+          executeLogCmd(logCmds.pop())
+        else
           serialize(serialization, provObject, ignore, callback)
-        }
       });
-    });
+    }
   });
 }
 
