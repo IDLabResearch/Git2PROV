@@ -11,7 +11,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 60px;
+        padding-top: 40px;
         padding-bottom: 40px;
       }
     </style>
@@ -32,9 +32,9 @@
       </a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li id="header-main"><a href="index.html">Git2PROV</a></li>
-          <li id="header-about"><a href="about.html">About</a></li>
-          <li id="header-contact"><a href="contact.html">Contact</a></li>
+          <li id="main"><a href="index.html">Git2PROV</a></li>
+          <li id="about"><a href="about.html">About</a></li>
+          <li id="contact"><a href="contact.html">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -44,10 +44,9 @@
 
 <section class="round">
 
-
   <div class="span12 row-fluid">
 	<div class="span8" style="text-align:center;margin-top:80px;margin-bottom:50px">
-	  <form action="git2prov" method="get" enctype="multipart/form-data">
+	  <form action="#" method="get" enctype="multipart/form-data">
 	    <style type="text/css">
 	      .input-append .btn .dropdown-toggle {
 	      float: none;
@@ -57,63 +56,82 @@
 	      <table style="margin-left: auto; margin-right: auto;">
 		
 
-		<tr>
-      <td><img src="images/git2provlogo.png" width="80%" height="80%" alt="" /></td>
-		  <td><div class="span16">Enter a Git Repo: </div> </td>
+    		<tr>
+          <td><img src="images/git2provlogo.png" width="80%" height="80%" alt="" /></td>
+  		    <td><div class="span16">Enter a Git Repo: </div> </td>
 
-      <td>
-		    <div class="input-append btn-group">
-		      <input id="giturl" type="text" name="giturl" class="input-large" style="width:300px; "  />
-		      
-		      <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-			       <span class="caret"></span>
-		      </a> 
-		      
-		      
-		      <ul class="dropdown-menu">
-			     <li>Examples</li>
-			     <li><a href="#" onclick="updateURLInputBox('https://github.com/tdn/SMIF-Mozaiek.git')">
-			       <i class="icon-ok"></i> Mozaik</a>
-			     </li>
-			     <li><a href="#" onclick="updateURLInputBox('https://github.com/lucmoreau/ProvToolbox.git')">
-			       <i class="icon-ok"></i> ProvToolbox</a>
-			     </li>
-		      </ul>
-		    </div>
-		  </td>
+          <td>
+  		      <div class="input-append btn-group">
+    		      <input id="url" type="text" name="url" class="input-large" style="width:300px; "  />
+    		      
+    		      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    			       <span class="caret"></span>
+    		      </a> 
+    		      
+    		      
+    		      <ul class="dropdown-menu">
+    			     <li>Examples</li>
+    			     <li><a href="#" onclick="updateURLInputBox('https://github.com/tdn/SMIF-Mozaiek.git')">
+    			       <i class="icon-ok"></i> Mozaik</a>
+    			     </li>
+  			       <li><a href="#" onclick="updateURLInputBox('https://github.com/lucmoreau/ProvToolbox.git')">
+  			         <i class="icon-ok"></i> ProvToolbox</a>
+  			       </li>
+  		        </ul>
+  		      </div>
+  		    </td>
 
-             <td rowspan="3">
-                    <input type="submit"   value="PROV-JSON"   name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
-                    <input type="submit"   value="PROV-RDF"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
-                    <input type="submit"   value="PROV-N"  name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
-                    <input type="submit"   value="PROV-O" name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
-                    <input type="submit"   value="SVG"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
-                </td>
+          <td rowspan="3">
+              <input type="submit"   value="PROV-JSON"   name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; " onclick="sendRequest('PROV-JSON')"/><br>
+              <input type="submit"   value="PROV-RDF"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('PROV-RDF')"/><br>
+              <input type="submit"   value="PROV-N"  name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('PROV-N')"/><br>
+              <input type="submit"   value="PROV-O" name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('PROV-O')"/><br>
+              <input type="submit"   value="SVG"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('SVG')"/><br>
+          </td>
 
 		    </tr>
 		
 	      </table>
 	    </div>
 	  </form>
+    <form>
+      <textarea id="response" style="width:720px;" rows="10"></textarea>
+      <input type="submit"   value="Download"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
+
+    </form>
 	</div>
 	
 
  
 </section>
 <section style="width: 100%; position:absolute; bottom: 10px; margin-left: 20px;"> Powered by:
-       <img style="margin:3px;" src="images/ugentlogo.png" width="5%" height="5%" alt="Ghent University" />
-       <img style="margin:3px;" src="images/imindslogo.png" width="10%" height="10%" alt="iMinds" />
-       <img style="margin:3px;" src="images/mmlablogo.png" width="10%" height="10%" alt="MMLab" />
-       <img style="margin:3px;" src="images/vulogo.png" width="12%" height="12%" alt="&amp; VU University Amsterdam" /></section>
+       <img style="margin:5px;" src="images/ugentlogo.png" width="5%" height="5%" alt="Ghent University" />
+       <img style="margin:5px;" src="images/imindslogo.png" width="10%" height="10%" alt="iMinds" />
+       <img style="margin:5px;" src="images/mmlablogo.png" width="10%" height="10%" alt="MMLab" />
+       <img style="margin:5px;" src="images/vulogo.png" width="12%" height="12%" alt="&amp; VU University Amsterdam" /></section>
 
 <script src="js/bootstrap.js"></script>
 
 <script>
 function updateURLInputBox(val){
-    document.getElementById("giturl").value = val;
+    document.getElementById("url").value = val;
 }
 
-$('.dropdown-toggle').dropdown()
+function sendRequest(serialization){
+    var value = document.getElementById("url").value;
+    $.get("git2prov", { giturl: value, serialization: serialization}).done(function(data,status){
+      document.getElementById("response").value = data;
+    });
+    document.getElementById("url").value = value;
+}
+
+$('.dropdown-toggle').dropdown();
+
+
 </script>
 
  
