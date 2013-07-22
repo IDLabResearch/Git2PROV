@@ -62,7 +62,7 @@
 
           <td>
   		      <div class="input-append btn-group">
-    		      <input id="url" type="text" name="url" class="input-large" style="width:300px; "  />
+    		      <input id="giturl" type="text" name="giturl" class="input-large" style="width:300px; "  />
     		      
     		      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     			       <span class="caret"></span>
@@ -82,15 +82,15 @@
   		    </td>
 
           <td rowspan="3">
-              <input type="submit"   value="PROV-JSON"   name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; " onclick="sendRequest('PROV-JSON')"/><br>
-              <input type="submit"   value="PROV-RDF"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
-              onclick="sendRequest('PROV-RDF')"/><br>
-              <input type="submit"   value="PROV-N"  name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
-              onclick="sendRequest('PROV-N')"/><br>
-              <input type="submit"   value="PROV-O" name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
-              onclick="sendRequest('PROV-O')"/><br>
-              <input type="submit"   value="SVG"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
-              onclick="sendRequest('SVG')"/><br>
+              <button type="button" id="PROV-JSON"  class="btn btn-primary btn-large" style="text-align:center; width:140px; " onclick="sendRequest('PROV-JSON')">PROV-JSON</button><br>
+              <button type="button" id="PROV-RDF"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('PROV-RDF')"/>PROV-RDF</button><br>
+              <button type="button" id="PROV-N"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('PROV-N')"/>PROV-N</button><br>
+              <button type="button" id="PROV-O"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('PROV-O')"/>PROV-O</button><br>
+              <button type="button"  id="SVG"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              onclick="sendRequest('SVG')"/>SVG</button><br>
           </td>
 
 		    </tr>
@@ -118,15 +118,15 @@
 
 <script>
 function updateURLInputBox(val){
-    document.getElementById("url").value = val;
+    document.getElementById("giturl").value = val;
 }
 
 function sendRequest(serialization){
-    var value = document.getElementById("url").value;
+    document.getElementById("response").value = "";
+    var value = document.getElementById("giturl").value;
     $.get("git2prov", { giturl: value, serialization: serialization}).done(function(data,status){
       document.getElementById("response").value = data;
     });
-    document.getElementById("url").value = value;
 }
 
 $('.dropdown-toggle').dropdown();
