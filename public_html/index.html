@@ -82,14 +82,14 @@
   		    </td>
 
           <td rowspan="3">
-              <button type="button" id="PROV-JSON"  class="btn btn-primary btn-large" style="text-align:center; width:140px; " onclick="sendRequest('PROV-JSON')">PROV-JSON</button><br>
-              <button type="button" id="PROV-RDF"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              <button type="button" id="PROV-JSON"  class="btn btn-primary btn-large" style="text-align:center; width:150px; " onclick="sendRequest('PROV-JSON')">PROV-JSON</button><br>
+              <button type="button" id="PROV-RDF"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
               onclick="sendRequest('PROV-RDF')"/>PROV-RDF</button><br>
-              <button type="button" id="PROV-N"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              <button type="button" id="PROV-N"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
               onclick="sendRequest('PROV-N')"/>PROV-N</button><br>
-              <button type="button" id="PROV-O"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              <button type="button" id="PROV-O"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
               onclick="sendRequest('PROV-O')"/>PROV-O</button><br>
-              <button type="button"  id="SVG"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "
+              <button type="button"  id="SVG"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
               onclick="sendRequest('SVG')"/>SVG</button><br>
           </td>
 
@@ -100,7 +100,7 @@
 	  </form>
     <form>
       <textarea id="response" style="width:720px;" rows="10"></textarea>
-      <input type="submit"   value="Download"    name="serialization"  class="btn btn-primary btn-large" style="text-align:center; width:140px; "/><br>
+      <button type="button" id ="download" class="btn btn-primary btn-large" style="text-align:center; width:150px;" onclick="downloadTextarea()"/>Download</button><br>
 
     </form>
 	</div>
@@ -117,6 +117,7 @@
 <script src="js/bootstrap.js"></script>
 
 <script>
+
 function updateURLInputBox(val){
     document.getElementById("giturl").value = val;
 }
@@ -129,9 +130,12 @@ function sendRequest(serialization){
     });
 }
 
+function downloadTextarea(){
+    var content = document.getElementById("response").value;
+    location.href = "data:application/octet-stream," + encodeURIComponent(content);
+}
+
 $('.dropdown-toggle').dropdown();
-
-
 </script>
 
  
