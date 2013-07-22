@@ -6,9 +6,12 @@ Then you need to run the following commands:
 	npm install express
 
 To execute, use the following command:
-    node index.js
+    node index.js [port number, for example 8905]
     
-Then go to your browser and enter the following url
+Then go to your browser and enter the following url:
+http://localhost:8905/
+
+Otherwise you can use directly the URL:
 http://localhost:8905/git2prov?giturl=<your open git repository>&serialization=<your serialization of choice>&[optional parameters]
 The OPTIONAL parameters are:
 serialization:
