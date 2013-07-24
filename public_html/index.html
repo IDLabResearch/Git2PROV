@@ -9,6 +9,7 @@
 
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/git2prov.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -52,23 +53,16 @@
 	      float: none;
 	      }
 	    </style>
-	    <div style="text-align:left;">
-	      <table style="margin-left: auto; margin-right: auto;">
-		
-
-    		<tr>
-          <td><img src="images/git2provlogo.png" width="80%" height="80%" alt="" /></td>
-  		    <td><div class="span16">Enter a Git Repo: </div> </td>
-
-          <td>
-  		      <div class="input-append btn-group">
+	    <div id="contentContainer">
+          <img id="logo" src="images/git2provlogo.png" alt="" />
+  		    
+  		      <div id="giturlContainer" class="input-append btn-group">
+              <label for="giturl">Enter a Git Repo:</label>
     		      <input id="giturl" type="text" name="giturl" class="input-large" style="width:300px; "  />
     		      
     		      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     			       <span class="caret"></span>
     		      </a> 
-    		      
-    		      
     		      <ul class="dropdown-menu">
     			     <li>Examples</li>
     			     <li><a href="#" onclick="updateURLInputBox('https://github.com/tdn/SMIF-Mozaiek.git')">
@@ -79,28 +73,22 @@
   			       </li>
   		        </ul>
   		      </div>
-  		    </td>
+            
+              <label>Choose a serialization:</label>
+              <button type="button" id="PROV-JSON"  class="git2provButton" style="text-align:center; width:150px; "
+              onclick="sendRequest('PROV-JSON')">PROV-JSON</button>
+              <button type="button" id="PROV-N"  class="git2provButton" style="text-align:center; width:150px; "
+              onclick="sendRequest('PROV-N')"/>PROV-N</button>
+              <button type="button" id="PROV-O"  class="git2provButton" style="text-align:center; width:150px; "
+              onclick="sendRequest('PROV-O')"/>PROV-O</button>
+              <button type="button"  id="SVG"  class="git2provButton" style="text-align:center; width:150px; "
+              onclick="sendRequest('SVG')"/>SVG</button>
 
-          <td rowspan="3">
-              <button type="button" id="PROV-JSON"  class="btn btn-primary btn-large" style="text-align:center; width:150px; " onclick="sendRequest('PROV-JSON')">PROV-JSON</button><br>
-              <button type="button" id="PROV-RDF"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
-              onclick="sendRequest('PROV-RDF')"/>PROV-RDF</button><br>
-              <button type="button" id="PROV-N"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
-              onclick="sendRequest('PROV-N')"/>PROV-N</button><br>
-              <button type="button" id="PROV-O"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
-              onclick="sendRequest('PROV-O')"/>PROV-O</button><br>
-              <button type="button"  id="SVG"  class="btn btn-primary btn-large" style="text-align:center; width:150px; "
-              onclick="sendRequest('SVG')"/>SVG</button><br>
-          </td>
-
-		    </tr>
-		
-	      </table>
 	    </div>
 	  </form>
     <form>
-      <textarea id="response" style="width:720px;" rows="10"></textarea>
-      <button type="button" id ="download" class="btn btn-primary btn-large" style="text-align:center; width:150px;" onclick="downloadTextarea()"/>Download</button><br>
+      <textarea id="response" style="width:720px;" rows="5"></textarea><br />
+      <button type="button" id ="download" class="git2provButton" style="text-align:center; width:150px;" onclick="downloadTextarea()"/>Download</button>
 
     </form>
 	</div>
@@ -108,7 +96,7 @@
 
  
 </section>
-<section style="width: 100%; position:absolute; bottom: 10px; margin-left: 20px;"> Powered by:
+<section id="institutions"> Powered by:
        <img style="margin:5px;" src="images/ugentlogo.png" width="5%" height="5%" alt="Ghent University" />
        <img style="margin:5px;" src="images/imindslogo.png" width="10%" height="10%" alt="iMinds" />
        <img style="margin:5px;" src="images/mmlablogo.png" width="10%" height="10%" alt="MMLab" />
