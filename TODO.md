@@ -1,5 +1,4 @@
 TODO:
-- make the download work
 - make a API request to get the SVG
 
 
