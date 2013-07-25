@@ -1,0 +1,25 @@
+#contentContainer{
+  width: 100%;
+  text-align: left;
+}
+#giturlContainer{
+  width: 70%;
+}
+#logo {
+  float: left;
+  height: 20%;
+  width: 20%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+#instututions{
+ width: 100%; 
+ margin-left: 20px; 
+}
+.git2provButton {
+   color:#FFFFFF;
+   background-color:#62f103;
+   border-style:solid;
+   border-color:#FFFFFF;
+   border-width:1px;
+}
