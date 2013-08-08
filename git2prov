@@ -12,6 +12,7 @@
 # Description:          Git2Prov Service
 ### END INIT INFO
 PID_FILE=/var/run/git2prov.pid
+PROXY_PID_FILE=/var/run/proxy.pid
 LOG_FILE=/var/log/git2prov.log
 APPLICATION_DIR=/home/node/git2prov/
 
@@ -23,8 +24,9 @@ start() {
   else
     echo "Starting server..."
     cd $APPLICATION_DIR
-    sudo node proxy.js 80
-    sudo -u node node index.js 8905 2>&1 >> $LOG_FILE
+    sudo node proxy.js 80 8905 &
+    echo $! > $PROXY_PID_FILE
+    sudo -u node node index.js 8905 2>&1 >> $LOG_FILE &
     echo $! > $PID_FILE;
     RETVAL=$?
   fi
@@ -39,26 +41,10 @@ stop() {
     echo "Killing `cat $PID_FILE`"
     kill `cat $PID_FILE`;
     rm $PID_FILE;
+    echo "Killing `cat $PROXY_PID_FILE`"
+    kill `cat $PROXY_PID_FILE`;
+    rm $PROXY_PID_FILE;
     echo "Server stopped"
-    RETVAL=$?
-  fi
-}
-
-restart() {
-  if [ ! -f $PID_FILE ]
-  then
-    echo "$PID_FILE does not exist, process is not running"
-    RETVAL=0
-  else
-    echo "Restarting server..."
-    echo "Killing `cat $PID_FILE`"
-    kill `cat $PID_FILE`;
-    rm $PID_FILE;
-    cd $APPLICATION_DIR
-    sudo node proxy.js 80
-    sudo -u node node index.js 8905 2>&1 >> $LOG_FILE
-    echo $! > $PID_FILE;
-    echo "Server restarted"
     RETVAL=$?
   fi
 }
@@ -71,10 +57,11 @@ case "$1" in
         stop
         ;;
     restart)
-        restart
+        stop
+        start
         ;;
     *)
-        echo "Usage: {start|stop|status|restart}"
+        echo "Usage: {start|stop|restart}"
         exit 1
         ;;
 esac
