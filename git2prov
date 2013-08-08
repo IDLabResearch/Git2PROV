@@ -13,7 +13,7 @@
 ### END INIT INFO
 PID_FILE=/var/run/git2prov.pid
 LOG_FILE=/var/log/git2prov.log
-
+APPLICATION_DIR=/home/node/git2prov/
 
 start() {
   if [ -f $PID_FILE ]
@@ -21,7 +21,7 @@ start() {
     echo "$PID_FILE exists, process is already running or crashed"
   else
     echo "Starting server..."
-    cd /home/tdenies/git2prov/
+    cd $APPLICATION_DIR
     sudo -u node node index.js 80 2>&1 >> $LOG_FILE
     echo $! > $PID_FILE;
   fi
@@ -49,7 +49,7 @@ restart() {
     echo "Killing `cat $PID_FILE`"
     kill `cat $PID_FILE`;
     rm $PID_FILE;
-    cd /home/tdenies/git2prov/
+    cd $APPLICATION_DIR
     sudo -u node node index.js 80 2>&1 >> $LOG_FILE
     echo $! > $PID_FILE;
     echo "Server restarted"
