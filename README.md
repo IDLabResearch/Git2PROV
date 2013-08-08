@@ -3,8 +3,11 @@ Make sure you have node.js and git installed and in the system PATH variable.
 Then you need to run the following commands:
 	npm install express
 	npm install n3
-	npm install express
+	npm install http-proxy
 
+===========================
+  RUNNING LOCALLY
+===========================
 To execute, use the following command:
     node index.js [port number, for example 8905]
     
@@ -27,3 +30,21 @@ ignore
 Example:
 http://localhost:8905/git2prov?giturl=<your open git repository>&serialization=PROV-JSON&shortHashes=true&ignore=wasInformedBy&ignore=used
 
+
+======================================
+  RUNNING AS SERVICE ON UNIX MACHINE
+======================================
+
+#Copy the startup script to your /etc/init.d directory:
+sudo cp git2prov /etc/init.d/git2prov
+#Make it executable
+sudo chmod a+x /etc/init.d/git2prov
+#add it to the startup services
+update-rc.d git2prov defaults
+
+#You can now do commands such as
+sudo service git2prov start
+sudo service git2prov restart
+sudo service git2prov stop
+
+#And the service will automatically start when the machine is rebooted.
