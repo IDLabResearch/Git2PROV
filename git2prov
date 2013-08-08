@@ -1,0 +1,57 @@
+#!/bin/bash
+# Startup script for the Git2Prov service
+### BEGIN INIT INFO
+# Provides:             git2prov
+# Required-Start:       $syslog $remote_fs
+# Required-Stop:        $syslog $remote_fs
+# Should-Start:         $local_fs
+# Should-Stop:          $local_fs
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Git2Prov Service
+# Description:          Git2Prov Service
+### END INIT INFO
+PID_FILE=/var/run/git2prov.pid
+LOG_FILE=/var/log/git2prov.log
+
+
+start() {
+  if [ -f $PID_FILE ]
+  then
+    echo "$PID_FILE exists, process is already running or crashed"
+  else
+    echo "Starting server..."
+    cd /home/tdenies/git2prov/
+    sudo -u node node index.js 80 2>&1 >> $LOG_FILE
+    echo $! > $PID_FILE;
+  fi
+}
+stop() {
+  if [ ! -f $PID_FILE ]
+  then
+    echo "$PID_FILE does not exist, process is not running"
+  else
+    echo "Stopping server..."
+    echo "Killing `cat $PID_FILE`"
+    kill `cat $PID_FILE`;
+    rm $PID_FILE;
+    echo "Server stopped"
+  fi
+}
+
+restart() {
+  if [ ! -f $PID_FILE ]
+  then
+    echo "$PID_FILE does not exist, process is not running"
+
+  else
+    echo "Restarting server..."
+    echo "Killing `cat $PID_FILE`"
+    kill `cat $PID_FILE`;
+    rm $PID_FILE;
+    cd /home/tdenies/git2prov/
+    sudo -u node node index.js 80 2>&1 >> $LOG_FILE
+    echo $! > $PID_FILE;
+    echo "Server restarted"
+  fi
+}
