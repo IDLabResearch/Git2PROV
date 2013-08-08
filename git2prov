@@ -19,24 +19,28 @@ start() {
   if [ -f $PID_FILE ]
   then
     echo "$PID_FILE exists, process is already running or crashed"
+    RETVAL=0
   else
     echo "Starting server..."
     cd $APPLICATION_DIR
     sudo node proxy.js 80
     sudo -u node node index.js 8905 2>&1 >> $LOG_FILE
     echo $! > $PID_FILE;
+    RETVAL=$?
   fi
 }
 stop() {
   if [ ! -f $PID_FILE ]
   then
     echo "$PID_FILE does not exist, process is not running"
+    RETVAL=0
   else
     echo "Stopping server..."
     echo "Killing `cat $PID_FILE`"
     kill `cat $PID_FILE`;
     rm $PID_FILE;
     echo "Server stopped"
+    RETVAL=$?
   fi
 }
 
@@ -44,7 +48,7 @@ restart() {
   if [ ! -f $PID_FILE ]
   then
     echo "$PID_FILE does not exist, process is not running"
-
+    RETVAL=0
   else
     echo "Restarting server..."
     echo "Killing `cat $PID_FILE`"
@@ -55,6 +59,7 @@ restart() {
     sudo -u node node index.js 8905 2>&1 >> $LOG_FILE
     echo $! > $PID_FILE;
     echo "Server restarted"
+    RETVAL=$?
   fi
 }
 
@@ -73,3 +78,4 @@ case "$1" in
         exit 1
         ;;
 esac
+exit $RETVAL
