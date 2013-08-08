@@ -9,4 +9,4 @@ handle["/git2prov"] = requestHandlers.git2prov;
 if(process.argv[2])
   server.start(parseInt(process.argv[2]), router.route, handle);
 else
-  server.start(80, router.route, handle);
+  server.start(8905, router.route, handle);

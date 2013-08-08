@@ -30,6 +30,10 @@ ignore
 Example:
 http://localhost:8905/git2prov?giturl=<your open git repository>&serialization=PROV-JSON&shortHashes=true&ignore=wasInformedBy&ignore=used
 
+To start a proxy server:
+    node proxy.js <port> <target port>
+for example:
+    node proxy.js 80 8905
 
 ======================================
   RUNNING AS SERVICE ON UNIX MACHINE

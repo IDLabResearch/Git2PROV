@@ -22,7 +22,8 @@ start() {
   else
     echo "Starting server..."
     cd $APPLICATION_DIR
-    sudo -u node node index.js 80 2>&1 >> $LOG_FILE
+    sudo node proxy.js 80
+    sudo -u node node index.js 8905 2>&1 >> $LOG_FILE
     echo $! > $PID_FILE;
   fi
 }
@@ -50,7 +51,8 @@ restart() {
     kill `cat $PID_FILE`;
     rm $PID_FILE;
     cd $APPLICATION_DIR
-    sudo -u node node index.js 80 2>&1 >> $LOG_FILE
+    sudo node proxy.js 80
+    sudo -u node node index.js 8905 2>&1 >> $LOG_FILE
     echo $! > $PID_FILE;
     echo "Server restarted"
   fi
