@@ -55,3 +55,19 @@ restart() {
     echo "Server restarted"
   fi
 }
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
