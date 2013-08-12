@@ -26,7 +26,7 @@ start() {
     cd $APPLICATION_DIR
     sudo node proxy.js 80 8905 &
     echo $! > $PROXY_PID_FILE
-    sudo -u node node index.js 8905 2>&1 >> $LOG_FILE &
+    sudo node index.js 8905 2>&1 >> $LOG_FILE &
     echo $! > $PID_FILE;
     RETVAL=$?
   fi
