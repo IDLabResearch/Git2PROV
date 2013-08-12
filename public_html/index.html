@@ -10,15 +10,9 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/git2prov.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-      }
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.png">
     <link rel="http://www.w3.org/ns/prov#has_provenance" href="webpage.provn">
   </head>
   <body>
@@ -46,7 +40,7 @@
 <section class="round">
 
   <div class="span12 row-fluid">
-	<div class="span8" style="text-align:center;margin-top:80px;margin-bottom:50px">
+	<div id="git2provContainer" class="span8">
 	  <form action="#" method="get" enctype="multipart/form-data">
 	    <style type="text/css">
 	      .input-append .btn .dropdown-toggle {
@@ -86,6 +80,7 @@
 
 	    </div>
 	  </form>
+    <img id="ajax-loader" src="images/ajax-loader.gif" /><br/>
     <form>
       <textarea id="response" style="width:720px;" rows="5"></textarea><br />
       <button type="button" id ="download" class="git2provButton" style="text-align:center; width:150px;" onclick="downloadTextarea()"/>Download</button>
@@ -112,9 +107,11 @@ function updateURLInputBox(val){
 
 function sendRequest(serialization){
     document.getElementById("response").value = "";
+    document.getElementById("ajax-loader").style.visibility = "visible";
     var value = document.getElementById("giturl").value;
     $.get("git2prov", { giturl: value, serialization: serialization}).done(function(data,status){
       document.getElementById("response").value = data;
+      document.getElementById("ajax-loader").style.visibility = "hidden";
     });
 }
 
