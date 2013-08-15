@@ -1,6 +1,9 @@
-body {
-        padding-top: 40px;
-        padding-bottom: 40px;
+html, body {
+  margin: 0;
+  padding: 0;
+}
+html {
+  padding: 40px;
 }
 #git2provContainer{
   text-align:center;
@@ -23,8 +26,8 @@ body {
   margin-bottom: 20px;
 }
 #instututions{
- width: 100%; 
- margin-left: 20px; 
+ width: 100%;
+ margin-left: 20px;
 }
 .git2provButton {
    color:#FFFFFF;
