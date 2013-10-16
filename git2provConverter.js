@@ -114,14 +114,14 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
           // remove the trailing filename from the --name-status line 
           line = line.substring(0,line.lastIndexOf(',')+2);
           var data = line.split(",");
-          var entity = data[0];
-          var commit = data[1];
+          var entity = "file-" + data[0];
+          var commit = "commit-" + data[1];
           var commitEntity = entity + "_" + commit;
           var parents = data[2].split(" ");
-          var authorname = data[3].replace(/ /g,"-");
+          var authorname = "user-" + data[3].replace(/ /g,"-");
           var authorlabel = data[3];
           var authordate = new Date(data[4]).toISOString();
-          var committername = data[5].replace(/ /g,"-");
+          var committername = "user-" + data[5].replace(/ /g,"-");
           var committerlabel = data[5];
           var committerdate = new Date(data[6]).toISOString();
           var subject = data[7];
