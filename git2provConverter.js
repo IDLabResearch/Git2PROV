@@ -175,7 +175,7 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
                     "prov:usage": usage
                   };
                   provObject.communications[urlprefix + ":" + commit + "_" + parent + "_comm"] = {
-                    "prov:informant": urlprefix + ":" + "file-" + parent,
+                    "prov:informant": urlprefix + ":" + "commit-" + parent,
                     "prov:informed": urlprefix + ":" + commit
                   };
                 }
