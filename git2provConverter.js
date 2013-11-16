@@ -97,7 +97,7 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
       //console.log('Processing ' + file);
       // Because all identifiers need to be QNames in PROV, and we need valid turtle as well, we need to get rid of the slashes and dots
       var currentEntity = file.replace(/[\/.]/g,"-");
-      provObject.entities[urlprefix + ":" + currentEntity] = {"prov:label" : file};
+      provObject.entities[urlprefix + ":file-" + currentEntity] = {"prov:label" : file};
       // Next, do a git log for each file to find out about all commits, authors, the commit parents, and the modification type
       // This will output the following: Commit hash, Parent hash(es), Author name, Author date, Committer name, Committer date, Subject, name-status
       // This translates to: activity (commit), derivations, agent (author), starttime, agent (committer), endtime, prov:label (Commit message)
@@ -160,7 +160,7 @@ function convertRepositoryToProv(repositoryPath, serialization, requestUrl, opti
               };
               parents.forEach(function(parent){
                 if(parent !== ""){
-                  var parentEntity = entity + "_" + parent;
+                  var parentEntity = entity + "_commit-" + parent;
                   var usage = urlprefix + ":" + parentEntity + "_" + commit + "_use";
                   provObject.usages[usage] = {
                     "prov:activity": urlprefix + ":" + commit,
