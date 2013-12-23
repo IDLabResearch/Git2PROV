@@ -7,6 +7,9 @@ var serialize = require('./provSerializer').serialize;
    RepositoryPath will be used to temporarily store the cloned repository on the server. 
 */
 function convert(giturl, serialization, repositoryPath, requestUrl, options, callback) {
+  // Convert git URLs to https URLs 
+  if(giturl.indexOf("git@github.com:") > -1)
+    giturl = giturl.replace("git@github.com:", "https://github.com/");
   // get the repository name. 
   var repository = giturl.substring(giturl.lastIndexOf('/')+1, giturl.lastIndexOf('.git'));
   // clone the git repository
