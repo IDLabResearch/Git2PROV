@@ -31,7 +31,7 @@ function convert(giturl, serialization, repositoryPath, requestUrl, options, cal
 
 /* Clone a git repository (at giturl) to the specified repositoryPath on the server */
 function clone(giturl, repositoryPath, callback) {
-  exec('git clone '+ giturl + ' ' + repositoryPath, { timeout : 10000 },function (error, stdout, stderr) {
+  exec('git clone '+ giturl + ' ' + repositoryPath, { timeout : 30000 },function (error, stdout, stderr) {
     if( error !== null ) { 
       callback(error);
     } else {
