@@ -1,7 +1,14 @@
 #Git2PROV
 Check out our [One-minute Git2PROV tutorial on Vimeo](http://vimeo.com/70980809)
 
-Git2PROV is a joint work of Ghent University - iMinds - Multimedia Lab, and the Data2Semantics project of the VU University Amsterdam .
+For an in-depth description of this tool and its creation, we refer to the following paper:
+
+[Git2PROV: Exposing Version Control System Content as W3C PROV](http://www.iswc2013.semanticweb.org/sites/default/files/iswc_demo_32_0.pdf)
+by Tom De Nies, Sara Magliacane, Ruben Verborgh, Sam Coppens, Paul Groth, Erik Mannens, and Rik Van de Walle
+Published in 2013 in the Poster and Demo Proceedings of the 12th International Semantic Web Conference.
+
+#Disclaimer and License
+Git2PROV is a joint work of [Ghent University](http://www.ugent.be/) - [iMinds](http://www.iminds.be/) - [Multimedia Lab](http://mmlab.be/), and the [Data2Semantics](http://www.data2semantics.org/) project of the [VU University Amsterdam](http://www.vu.nl/) .
 
 The people involved are:
 * Tom De Nies (Ghent University - iMinds - MMLab)
@@ -12,10 +19,9 @@ The people involved are:
 * Erik Mannens (Ghent University - iMinds - MMLab)
 * Rik Van de Walle (Ghent University - iMinds - MMLab)
 
-For an in-depth description of this tool and its creation, we refer to the following paper:
-[Git2PROV: Exposing Version Control System Content as W3C PROV](http://www.iswc2013.semanticweb.org/sites/default/files/iswc_demo_32_0.pdf)
-by Tom De Nies, Sara Magliacane, Ruben Verborgh, Sam Coppens, Paul Groth, Erik Mannens, and Rik Van de Walle
-Published in 2013 in the Poster and Demo Proceedings of the 12th International Semantic Web Conference.
+We chose to make Git2PROV open source under [GPL Version 3 license](http://www.gnu.org/licenses/gpl.html) because we believe this will lead it to its full potential, and be of much more value to the Web community than a single isolated instance running on a server somewhere.
+
+So in short, you are free to use and modify Git2PROV for non-commercial purposes, as long as you make your stuff open source as well and you properly credit us. This is most conveniently done by citing the paper mentioned above.
 
 #Installation
 
