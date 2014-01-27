@@ -28,10 +28,11 @@ So in short, you are free to use and modify Git2PROV for non-commercial purposes
 Make sure you have node.js and git installed and in the system PATH variable.
 
 Then you need to run the following commands:
+```
 	npm install express
 	npm install n3
 	npm install http-proxy
-
+```
 ##Running Locally
 To execute, use the following command:
     node index.js [port number, for example 8905]
