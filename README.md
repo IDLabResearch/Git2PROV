@@ -1,3 +1,24 @@
+#Git2PROV
+Check out our [One-minute Git2PROV tutorial on Vimeo](http://vimeo.com/70980809)
+
+Git2PROV is a joint work of Ghent University - iMinds - Multimedia Lab, and the Data2Semantics project of the VU University Amsterdam .
+
+The people involved are:
+* Tom De Nies (Ghent University - iMinds - MMLab)
+* Sara Magliacane (VU Amsterdam)
+* Ruben Verborgh (Ghent University - iMinds - MMLab)
+* Sam Coppens (Ghent University - iMinds - MMLab)
+* Paul Groth (VU Amsterdam)
+* Erik Mannens (Ghent University - iMinds - MMLab)
+* Rik Van de Walle (Ghent University - iMinds - MMLab)
+
+For an in-depth description of this tool and its creation, we refer to the following paper:
+[Git2PROV: Exposing Version Control System Content as W3C PROV](http://www.iswc2013.semanticweb.org/sites/default/files/iswc_demo_32_0.pdf)
+by Tom De Nies, Sara Magliacane, Ruben Verborgh, Sam Coppens, Paul Groth, Erik Mannens, and Rik Van de Walle
+Published in 2013 in the Poster and Demo Proceedings of the 12th International Semantic Web Conference.
+
+#Installation
+
 Make sure you have node.js and git installed and in the system PATH variable.
 
 Then you need to run the following commands:
@@ -5,16 +26,16 @@ Then you need to run the following commands:
 	npm install n3
 	npm install http-proxy
 
-===========================
-  RUNNING LOCALLY
-===========================
+##Running Locally
 To execute, use the following command:
     node index.js [port number, for example 8905]
     
 Then go to your browser and enter the following url:
 http://localhost:8905/
 
-Otherwise you can use directly the URL:
+This will give you the [standard Git2PROV homepage](http://git2prov.org).
+
+TO use the service directly, use the following URL:
 http://localhost:8905/git2prov?giturl=<your open git repository>&serialization=<your serialization of choice>&[optional parameters]
 The OPTIONAL parameters are:
 serialization:
@@ -35,20 +56,26 @@ To start a proxy server:
 for example:
     node proxy.js 80 8905
 
-======================================
-  RUNNING AS SERVICE ON UNIX MACHINE
-======================================
+##Running as a service on a Linux/UNIX machine
+This script is used in combination with init.d. You could also modify it to work with upstart.
 
-#Copy the startup script to your /etc/init.d directory:
+Copy the startup script "git2prov" to your /etc/init.d directory:
+```
 sudo cp git2prov /etc/init.d/git2prov
-#Make it executable
+```
+Make it executable
+```
 sudo chmod a+x /etc/init.d/git2prov
-#add it to the startup services
+```
+add it to the startup services
+```
 update-rc.d git2prov defaults
-
-#You can now do commands such as
+```
+You can now do commands such as
+```
 sudo service git2prov start
 sudo service git2prov restart
 sudo service git2prov stop
+```
 
-#And the service will automatically start when the machine is rebooted.
+And the service should automatically start when the machine is rebooted.
