@@ -71,7 +71,7 @@ This script is used in combination with init.d. You could also modify it to work
 
 Copy the startup script "git2prov" to your /etc/init.d directory:
 ```
-sudo cp git2prov /etc/init.d/git2prov
+sudo cp scripts/git2prov /etc/init.d/git2prov
 ```
 Make it executable
 ```
