@@ -25,19 +25,29 @@ So in short, you are free to use and modify Git2PROV for non-commercial purposes
 
 #Installation
 
-Make sure you have node.js and git installed and in the system PATH variable.
-
-Then you need to run the following commands:
+Make sure you have node.js and git installed and in the system PATH variable. Then, run:
 ```
-	npm install express
-	npm install n3
-	npm install http-proxy
+[sudo] npm install -g git2prov
 ```
-##Running Locally
-To execute, use the following command:
 
-    node bin/git2prov-server [port number, for example 8905]
-    
+## Converting a repository
+To convert a single repository, run:
+
+    bin/git2prov git_url [serialization]
+
+For example:
+
+    bin/git2prov git@github.com:RubenVerborgh/N3.js.git PROV-JSON
+
+## Running the server
+To run the server, use the following command:
+
+    git2prov-server [port]
+
+For example:
+
+    git2prov-server 8905
+
 Then go to your browser and enter the following url:
 http://localhost:8905/
 

@@ -2,6 +2,10 @@
   "name": "git2prov",
   "version": "0.1.0",
   "description": "Unleash the potential of Git in the new W3C standard for provenance.",
+  "bin": [
+    "bin/git2prov",
+    "bin/git2prov-server"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/mmlab/Git2PROV.git"
