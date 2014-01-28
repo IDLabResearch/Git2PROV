@@ -1,7 +1,7 @@
 /* The main module, use "node index.js" to start the server */
-var server = require("./server");
-var router = require("./router");
-var requestHandlers = require("./requestHandlers");
+var server = require("./lib/server");
+var router = require("./lib/router");
+var requestHandlers = require("./lib/requestHandlers");
 
 var handle = {};
 handle["/git2prov"] = requestHandlers.git2prov;
