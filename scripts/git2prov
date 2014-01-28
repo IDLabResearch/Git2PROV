@@ -24,9 +24,9 @@ start() {
   else
     echo "Starting server..."
     cd $APPLICATION_DIR
-    sudo node proxy.js 80 8905 &
+    sudo node bin/proxy 80 8905 &
     echo $! > $PROXY_PID_FILE
-    sudo node index.js 8905 2>&1 >> $LOG_FILE &
+    sudo node bin/git2prov-server 8905 2>&1 >> $LOG_FILE &
     echo $! > $PID_FILE;
     RETVAL=$?
   fi
