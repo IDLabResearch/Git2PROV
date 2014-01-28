@@ -35,7 +35,8 @@ Then you need to run the following commands:
 ```
 ##Running Locally
 To execute, use the following command:
-    node index.js [port number, for example 8905]
+
+    node bin/git2prov-server [port number, for example 8905]
     
 Then go to your browser and enter the following url:
 http://localhost:8905/

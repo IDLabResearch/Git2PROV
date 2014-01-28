@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+var server = require("../lib/server");
+var router = require("../lib/router");
+var requestHandlers = require("../lib/requestHandlers");
+
+var handle = { '/git2prov': requestHandlers.git2prov };
+var port = parseInt(process.argv[2], 10) || 8905;
+server.start(port, router.route, handle);
+console.log("Server running on http://localhost:" + port + "/");
