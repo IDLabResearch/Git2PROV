@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var path = require('path'),
+    os = require('os'),
     convert = require("../lib/git2provConverter").convert;
 
 // Parse arguments
@@ -10,11 +11,13 @@ if (args.length < 1 || args.length > 2) {
 }
 var gitUrl = args[0],
     serialization = args[1] || 'PROV-JSON',
-    tempDir = path.join(__dirname, '../temp/repositories/', process.pid.toString()),
+    tempDir = path.join(os.tmpdir(), 'git2prov', process.pid.toString()),
     requestUrl = 'http://localhost/',
     options = {};
 
 // Output the provenance
-convert(gitUrl, serialization, tempDir, requestUrl, options, function(prov, error) {
+convert(gitUrl, serialization, tempDir, requestUrl, options, function (prov, error) {
+  if (error)
+    throw error;
   console.log(prov);
-})
+});
