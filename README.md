@@ -1,3 +1,7 @@
+
+[![Build Status](https://travis-ci.org/vladistan/Git2PROV.svg?branch=feature%2Funit-tests)](https://travis-ci.org/vladistan/Git2PROV.svg?branch=feature%2Funit-tests)
+[![Coverage Status](https://img.shields.io/coveralls/vladistan/Git2PROV.svg)](https://coveralls.io/r/vladistan/Git2PROV)
+
 #Git2PROV
 Check out our [One-minute Git2PROV tutorial on Vimeo](http://vimeo.com/70980809)
 
