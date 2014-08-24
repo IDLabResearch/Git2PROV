@@ -1,0 +1,573 @@
+{
+    "prefix": {
+        "result": "http://xxx.bob&d=1#",
+        "fullResult": "http://xxx.bob&serialization=PROV-JSON#"
+    },
+    "bundle": {
+        "result:provenance": {
+            "entity": {
+                "result:file--gitignore": {
+                    "prov:label": ".gitignore"
+                },
+                "result:file-Berksfile": {
+                    "prov:label": "Berksfile"
+                },
+                "result:file-Linux-call_watcher-c": {
+                    "prov:label": "Linux/call_watcher.c"
+                },
+                "result:file-Linux-test-sh": {
+                    "prov:label": "Linux/test.sh"
+                },
+                "result:file-Mac-call_watcher-c": {
+                    "prov:label": "Mac/call_watcher.c"
+                },
+                "result:file-Mac-test-c": {
+                    "prov:label": "Mac/test.c"
+                },
+                "result:file-Mac-test-sh": {
+                    "prov:label": "Mac/test.sh"
+                },
+                "result:file-Vagrantfile": {
+                    "prov:label": "Vagrantfile"
+                },
+                "result:file-LICENSE": {
+                    "prov:label": "LICENSE"
+                },
+                "result:file-README-md": {
+                    "prov:label": "README.md"
+                },
+                "result:file-Linux-Makefile": {
+                    "prov:label": "Linux/Makefile"
+                },
+                "result:file-Linux-myPreload-c": {
+                    "prov:label": "Linux/myPreload.c"
+                },
+                "result:file-Linux-test-c": {
+                    "prov:label": "Linux/test.c"
+                },
+                "result:file-Mac-Makefile": {
+                    "prov:label": "Mac/Makefile"
+                },
+                "result:file-Mac-inject-h": {
+                    "prov:label": "Mac/inject.h"
+                },
+                "result:file-Mac-inject-m": {
+                    "prov:label": "Mac/inject.m"
+                },
+                "result:file-Mac-open-c": {
+                    "prov:label": "Mac/open.c"
+                },
+                "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {},
+                "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a": {},
+                "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a": {},
+                "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {},
+                "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {}
+            },
+            "agent": {
+                "result:user-vlad": {
+                    "prov:label": "vlad"
+                },
+                "result:user-Vlad-Korolev": {
+                    "prov:label": "Vlad Korolev"
+                }
+            },
+            "activity": {
+                "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d": {
+                    "prov:label": "Modernized and harmonized the code"
+                },
+                "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162": {
+                    "prov:label": "Initial import"
+                },
+                "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a": {
+                    "prov:label": "Initial commit"
+                }
+            },
+            "wasStartedBy": {
+                "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_start": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_start": {
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_start": {
+                    "prov:activity": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T15:21:06.000Z"
+                }
+            },
+            "wasEndedBy": {
+                "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_end": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T15:50:51.000Z"
+                },
+                "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_end": {
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_end": {
+                    "prov:activity": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T15:41:35.000Z"
+                }
+            },
+            "wasAttributedTo": {
+                "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_user-Vlad-Korolev_attr": {
+                    "prov:entity": "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:agent": "result:user-Vlad-Korolev",
+                    "prov:type": "authorship"
+                },
+                "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_user-Vlad-Korolev_attr": {
+                    "prov:entity": "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:agent": "result:user-Vlad-Korolev",
+                    "prov:type": "authorship"
+                },
+                "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                },
+                "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_attr": {
+                    "prov:entity": "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:type": "authorship"
+                }
+            },
+            "wasAssociatedWith": {
+                "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_user-vlad_assoc": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:agent": "result:user-vlad",
+                    "prov:role": "author, committer"
+                },
+                "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_user-vlad_assoc": {
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:agent": "result:user-vlad",
+                    "prov:role": "author, committer"
+                },
+                "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_user-Vlad-Korolev_assoc": {
+                    "prov:activity": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:agent": "result:user-Vlad-Korolev",
+                    "prov:role": "author"
+                },
+                "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_user-vlad_assoc": {
+                    "prov:activity": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:agent": "result:user-vlad",
+                    "prov:role": "committer, committer"
+                }
+            },
+            "wasInformedBy": {
+                "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_comm": {
+                    "prov:informant": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:informed": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                }
+            },
+            "specializationOf": {
+                "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-open-c",
+                    "prov:specificEntity": "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Mac-open-c",
+                    "prov:specificEntity": "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-inject-m",
+                    "prov:specificEntity": "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Mac-inject-m",
+                    "prov:specificEntity": "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-inject-h",
+                    "prov:specificEntity": "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Mac-inject-h",
+                    "prov:specificEntity": "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-Makefile",
+                    "prov:specificEntity": "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Mac-Makefile",
+                    "prov:specificEntity": "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Linux-test-c",
+                    "prov:specificEntity": "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Linux-test-c",
+                    "prov:specificEntity": "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Linux-myPreload-c",
+                    "prov:specificEntity": "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Linux-myPreload-c",
+                    "prov:specificEntity": "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Linux-Makefile",
+                    "prov:specificEntity": "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_spec": {
+                    "prov:generalEntity": "result:file-Linux-Makefile",
+                    "prov:specificEntity": "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+                },
+                "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-README-md",
+                    "prov:specificEntity": "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_spec": {
+                    "prov:generalEntity": "result:file-README-md",
+                    "prov:specificEntity": "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a"
+                },
+                "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_spec": {
+                    "prov:generalEntity": "result:file-LICENSE",
+                    "prov:specificEntity": "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a"
+                },
+                "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Vagrantfile",
+                    "prov:specificEntity": "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-test-sh",
+                    "prov:specificEntity": "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-test-c",
+                    "prov:specificEntity": "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Mac-call_watcher-c",
+                    "prov:specificEntity": "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Linux-test-sh",
+                    "prov:specificEntity": "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Linux-call_watcher-c",
+                    "prov:specificEntity": "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file-Berksfile",
+                    "prov:specificEntity": "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                },
+                "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_spec": {
+                    "prov:generalEntity": "result:file--gitignore",
+                    "prov:specificEntity": "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+                }
+            },
+            "wasGeneratedBy": {
+                "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_gen": {
+                    "prov:entity": "result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:activity": "result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                    "prov:time": "2014-08-13T00:06:41.000Z"
+                },
+                "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_gen": {
+                    "prov:entity": "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:activity": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T15:21:06.000Z"
+                },
+                "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_gen": {
+                    "prov:entity": "result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:activity": "result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T15:21:06.000Z"
+                },
+                "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen": {
+                    "prov:entity": "result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                }
+            },
+            "used": {
+                "result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:entity": "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                }
+            },
+            "wasDerivedFrom": {
+                "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_der": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:generatedEntity": "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:usedEntity": "result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:generation": "result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen",
+                    "prov:usage": "result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use"
+                },
+                "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_der": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:generatedEntity": "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:usedEntity": "result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:generation": "result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen",
+                    "prov:usage": "result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use"
+                },
+                "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_der": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:generatedEntity": "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:usedEntity": "result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:generation": "result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen",
+                    "prov:usage": "result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use"
+                },
+                "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_der": {
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:generatedEntity": "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:usedEntity": "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a",
+                    "prov:generation": "result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen",
+                    "prov:usage": "result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use"
+                }
+            },
+            "wasInvalidatedBy": {
+                "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_inv": {
+                    "prov:entity": "result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_inv": {
+                    "prov:entity": "result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_inv": {
+                    "prov:entity": "result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                },
+                "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_inv": {
+                    "prov:entity": "result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:activity": "result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                    "prov:time": "2014-08-14T13:42:05.000Z"
+                }
+            }
+        }
+    }
+}
