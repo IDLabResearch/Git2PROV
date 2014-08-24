@@ -7,12 +7,6 @@ var serializers = require('../lib/provSerializer');
 
 
 describe('Unit', function(){
-  describe('#indexOf()', function(){
-    it('should return -1 when the value is not present', function(){
-      assert.equal(-1, [1,2,3].indexOf(5));
-      assert.equal(-1, [1,2,3].indexOf(9));
-    });
-  });
 
   describe('ProvSerializer ShouldBeAdded', function() {
       var testColl = { 'a': 1,  'd': 23, 'bill': 9 };
@@ -67,6 +61,110 @@ describe('Unit', function(){
 
       } );
   });
+
+  describe('Record writers', function() {
+
+    describe('PROV-N', function() {
+
+        it("should add PROV-N entries correctly", function(){
+            var initialRec = "[PREV]\n";
+            var rv = serializers.recordWriters.provN.addProvNEntries(
+                {'agents':{
+                    'e1': {'prov:label': 'E1'},
+                    'e2': {'prov:label': 'E2'}
+                }},
+               "bob", initialRec,'agents','X', function(x,y) {
+               return " : " + x[y]['prov:label'] ;
+           });
+           assert.equal(rv, initialRec  + "X(e1 : E1)\nX(e2 : E2)\n" );
+        });
+
+
+        it("should add PROV-N entries correctly, using alternate subject", function(){
+            var initialRec = "[PREV]\n";
+            var rv = serializers.recordWriters.provN.addProvNEntries(
+                {'agents':{
+                    'e1-extra': {'prov:label': 'E1', 'prov:xactivity': 'e1'},
+                    'e2-extra': {'prov:label': 'E2', 'prov:xactivity': 'e2'}
+                }},
+                "bob", initialRec,'agents','X', function(x,y) {
+                    return " : " + x[y]['prov:label'] ;
+                }, "prov:xactivity" );
+            assert.equal(rv, initialRec  + "X(e1 : E1)\nX(e2 : E2)\n" );
+        });
+
+        it("should add PROV-N prefixes correctly", function(){
+            var initialRec = "[PREV]\n";
+            var rv = serializers.recordWriters.provN.addPrefixes(
+                {'prefixes':{
+                    'p1': 'prefix1',
+                    'p2': 'prefix2'
+                }},
+                "{S}\n" );
+            assert.equal(rv, "{S}\nprefix p1 <prefix1>\nprefix p2 <prefix2>\n" );
+        });
+
+
+
+        it('Should give correct record for entity', function () {
+            var rv =  serializers.recordWriters.provN.entity({ 'x': {'prov:label': 'X'} }, 'x');
+            assert.equal(rv, ", [prov:label=\"X\"]");
+        });
+
+        it('Should give correct record for was started by', function () {
+            var rv =  serializers.recordWriters.provN.wasStartedBy({ 'x': {'prov:time': '11111'} }, 'x');
+            assert.equal(rv, ", -, -, 11111");
+        });
+
+        it('Should give correct record for communication', function () {
+            var rv =  serializers.recordWriters.provN.communication({ 'x': {'prov:informant': 'Bob'} }, 'x');
+            assert.equal(rv, ", Bob");
+        });
+
+        it('Should give correct record for attribution', function () {
+            var rv =  serializers.recordWriters.provN.attribution({ 'x': {'prov:agent': 'Alice', 'prov:type': 'rumor'} }, 'x');
+            assert.equal(rv, ", Alice, [prov:type=\"rumor\"]");
+        });
+
+        it('Should give correct record for association', function () {
+            var rv =  serializers.recordWriters.provN.association({ 'x': {'prov:agent': 'Alice', 'prov:role': 'editor'} }, 'x');
+            assert.equal(rv, ", Alice, [prov:role=\"editor\"]");
+        });
+
+        it('Should give correct record for specialization', function () {
+            var rv =  serializers.recordWriters.provN.specialization({ 'x': {'prov:agent': 'Alice', 'prov:generalEntity': 'Person'} }, 'x');
+            assert.equal(rv, ", Person");
+        });
+
+        it('Should give correct record for generation', function () {
+            var rv =  serializers.recordWriters.provN.generation({ 'x': {'prov:activity': 'Editing', 'prov:time': '12:44'} }, 'x');
+            assert.equal(rv, ", Editing, 12:44");
+        });
+
+        it('Should give correct record for usage', function () {
+            var rv =  serializers.recordWriters.provN.usage({ 'x': {'prov:entity': 'Pamphlet1', 'prov:time': '12:44'} }, 'x');
+            assert.equal(rv, ", Pamphlet1, 12:44");
+        });
+
+        it('Should give correct record for invalidation', function () {
+            var rv =  serializers.recordWriters.provN.invalidation({ 'x': {'prov:activity': 'Editing', 'prov:time': '12:44'} }, 'x');
+            assert.equal(rv, ", Editing, 12:44");
+        });
+
+        it('Should give correct record for derivation', function () {
+            var rv =  serializers.recordWriters.provN.derivation({ 'x': {
+                'prov:usedEntity': 'Table5',
+                'prov:activity': 'Editing',
+                'prov:generation': 'Table5_Gen',
+                'prov:usage': 'Table5_Use'
+            }}, 'x');
+            assert.equal(rv, ", Table5, Editing, Table5_Gen, Table5_Use");
+        });
+
+    });
+
+  });
+
 
 });
 
