@@ -38,9 +38,9 @@
         "xunit-file": "~0.0.5"
   },
   "scripts": {
-        "test": "mocha --require test/support/env --reporter spec --bail --check-leaks test/",
-        "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --require test/support/env --reporter xunit-file --check-leaks test/",
+        "test": "mocha --require test/support/env --reporter xunit-file --bail --check-leaks test/",
+        "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- -i -g Integration --require test/support/env --reporter spec --check-leaks test/",
         "cov-jenkins": "istanbul report cobertura",
-        "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --require test/support/env --reporter spec --check-leaks test/"
+        "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -i -g Integration --require test/support/env --reporter spec --check-leaks test/"
   }
 }
