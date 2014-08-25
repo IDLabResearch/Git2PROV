@@ -83,10 +83,12 @@ describe('Unit', function(){
     var invalidationTestData = { 'x': {'prov:activity': 'Editing', 'prov:time': '12:44'} };
 
 
-    function getN3Stub() {
+    function getN3Stub(triples) {
           var n3API = function () {};
           n3API.prototype.addTriple = function () {};
+          n3API.prototype.find = function () {};
           var store = sinon.stub(new n3API());
+          store.find.returns(triples);
           return store;
     }
 
@@ -117,7 +119,6 @@ describe('Unit', function(){
         });
 
         it("should add PROV-N prefixes correctly", function(){
-            var initialRec = "[PREV]\n";
             var rv = serializers.recordWriters.provN.addPrefixes(
                 {'prefixes':{
                     'p1': 'prefix1',
@@ -190,7 +191,7 @@ describe('Unit', function(){
           store = getN3Stub();
       });
 
-      it('Should add entities correctly', function() {
+      it('Should add prefixes correctly', function() {
 
           serializers.recordWriters.provO.addPrefix( store,
               {'prefixes':{
@@ -229,6 +230,14 @@ describe('Unit', function(){
           assert.deepEqual(store.addTriple.getCall(1).args,["e1-extra","rdfs:label","\"E1\"@en"]);
           assert.deepEqual(store.addTriple.getCall(2).args,["e2-extra","a","prov:Entity"]);
           assert.deepEqual(store.addTriple.getCall(3).args,["e2-extra","rdfs:label","\"E2\"@en"]);
+      });
+
+      it('Should add entities correctly', function() {
+            serializers.recordWriters.provO.addEntitiesD( store,
+                {'g': { 'e1': {'spec': 'x', 'prov:generalEntity': 'E5' }}},
+                "bob",'g','generated', serializers.recordWriters.provO.generalization, 'spec');
+            assert.equal(store.addTriple.called,true);
+            assert.deepEqual(store.addTriple.getCall(0).args,["generated","prov:specializationOf","E5"]);
       });
 
       it('Should add agents correctly', function() {
@@ -323,8 +332,73 @@ describe('Unit', function(){
             assert.deepEqual(store.addTriple.getCall(1).args,["F5",
                 "prov:qualifiedInvalidation",
                 "[ a prov:Invalidation ; prov:activity Editing ; prov:atTime \"12:44\"^^xsd:dateTime ]"]);
-      })
+      });
 
+
+      describe("Nice Turtle writer", function(){
+
+          describe('CMP', function(){
+
+              it('should return 0 when properties are the same', function(){
+                  var rv = serializers.recordWriters.provO.cmp('a','a');
+                  assert.equal(0,rv);});
+
+              it('should return -1 when first property is smaller', function(){
+                  var rv = serializers.recordWriters.provO.cmp('a','b');
+                  assert.equal(-1,rv);});
+
+              it('should return 1 when first property is larger', function(){
+                  var rv = serializers.recordWriters.provO.cmp('f','b');
+                  assert.equal(1,rv);});
+
+          });
+
+          describe('Statement from Triple', function(){
+
+              var triple = { 'subject': 'bob', 'predicate': 'eats', 'object': 'pie'};
+              var statementFromTriple = serializers.recordWriters.provO.statementFromTriple;
+
+              it('should output whole statement when no specialial cases apply', function() {
+                  var rv = statementFromTriple(triple,0,false,false);
+                  assert.equal(rv, "bob\teats\tpie ");
+              });
+
+              it('should prepend statement with .\\n if it is not a first triple ', function() {
+
+                  var rv = statementFromTriple(triple,5,false,false);
+                  assert.equal(rv, ".\nbob\teats\tpie ");
+              });
+
+              it('should skip subject if it is the same as previous ', function() {
+
+                  var rv = statementFromTriple(triple,5,true,false);
+                  assert.equal(rv, ";\n\t\teats\tpie ");
+              });
+
+              it('should skip predicate if it is the same as previous ', function() {
+                  var rv = statementFromTriple(triple,5,true,true);
+                  assert.equal(rv, ",\n\t\t\t\tpie ");
+              });
+
+          });
+
+
+          describe('Get turtle from N3', function(){
+
+              var store = getN3Stub([
+                  {subject:'@prefix',predicate:'b',object:'c'},
+                  {subject:'a',predicate:'b',object:'c'}
+              ]);
+
+              it('should get correct representation of triples', function(){
+                  var rv = serializers.recordWriters.provO.getTurtle(store);
+                  assert.equal("@prefix b c .\n" +
+                               "a\tb\t\c .",rv);
+              });
+
+          });
+
+      });
 
 
     });
@@ -342,9 +416,8 @@ describe('Integration', function(){
 
 
     beforeEach(function(complete) {
-         exec("rm -rf testRepo", { timeout : 5000 },function (error, stdout, stderr) {
-            complete();
-        });
+         exec("rm -rf testRepo", { timeout : 5000 },
+             function() { complete(); });
     });
 
     describe('Test Repo', function(){
