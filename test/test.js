@@ -9,7 +9,16 @@ var serializers = require('../lib/provSerializer');
 
 describe('Unit', function(){
 
-  describe('ProvSerializer ShouldBeAdded', function() {
+    var log_line1 = "Mac-open-c,9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d,21fd9dde98de5b31f4ca89fe0347b44fd2a1997a," +
+        "jill,2014-08-14 09:42:05 -0400,vlad,2014-08-14 11:50:51 -0400,Modernized and harmonized the code,D";
+    var log_line2 = "Mac-open-c,e01161193fe24e3c8f08a6d80c27ea33dac0c162,x y,bob,2014-08-12 20:06:41 -0400," +
+        "john,2014-08-12 20:06:41 -0400,Initial import,A";
+    var log_line3 = "README-md,9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d," +
+        "21fd9dde98de5b31f4ca89fe0347b44fd2a1997a,vlad,2014-08-14 09:42:05 -0400,vlad,2014-08-14 11:50:51 -0400," +
+        "Modernized and harmonized the code,M	README.md";
+
+
+    describe('ProvSerializer ShouldBeAdded', function() {
       var testColl = { 'a': 1,  'd': 23, 'bill': 9 };
       var ignoreBlock = "bob;bill,dope";
       it('Should allow to add property for which we have entry', function() {
@@ -393,7 +402,7 @@ describe('Unit', function(){
               it('should get correct representation of triples', function(){
                   var rv = serializers.recordWriters.provO.getTurtle(store);
                   assert.equal("@prefix b c .\n" +
-                               "a\tb\t\c .",rv);
+                               "a\tb\tc .",rv);
               });
 
           });
@@ -406,7 +415,297 @@ describe('Unit', function(){
   });
 
 
+  describe('ProvObject', function() {
 
+
+
+      it('should be constructed and have all necessary sections', function(){
+          var p = git2provCvt.getProvObject([],"http:/x");
+          assert.equal(p.bundle, "http:/x:provenance");
+          assert.deepEqual(p.entities, {});
+      });
+
+      describe('Update based on commit obj', function(){
+
+          var cm1 = git2provCvt.getCommitObj(log_line1);
+          var cm2 = git2provCvt.getCommitObj(log_line2);
+          var cm3 = git2provCvt.getCommitObj(log_line3);
+
+          var pObj = git2provCvt.getProvObject([],"http://y");
+
+          before(function(){
+              git2provCvt.updateProvObj(pObj,"http://y",cm1);
+              git2provCvt.updateProvObj(pObj,"http://y",cm2);
+              git2provCvt.updateProvObj(pObj,"http://y",cm3);
+          });
+
+          it('Should contain 2 commits in the activity section', function(){
+              assert.deepEqual(Object.keys(pObj.activities).sort(),[
+                  "http://y:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                  "http://y:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162"
+              ]);
+          });
+
+          it('Should contain 2 files in the entities section', function(){
+              assert.deepEqual(Object.keys(pObj.entities).sort(),[
+                  "http://y:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d",
+                  "http://y:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162",
+                  "http://y:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d"
+              ]);
+          });
+
+          it('Should contain 2 starts in the starts section', function(){
+              assert.deepEqual(Object.keys(pObj.starts).sort(),[
+                  "http://y:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_start",
+                  "http://y:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162_start"
+              ]);
+          });
+
+          it('Should contain information linkage in the communications section', function(){
+              var comm_1 = "http://y:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_comm";
+              assert.deepEqual(Object.keys(pObj.communications).sort(),[
+                  comm_1
+              ]);
+
+              assert.equal(pObj.communications[comm_1]["prov:informant"],"http://y:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a");
+              assert.equal(pObj.communications[comm_1]["prov:informed"],"http://y:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d");
+          });
+
+
+          it('Should contain derivation linkage in the communications section', function(){
+              var comm_1 = "http://y:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_der";
+              assert.deepEqual(Object.keys(pObj.derivations).sort(),[
+                  comm_1
+              ]);
+
+              assert.equal(pObj.derivations[comm_1]["prov:generation"],"http://y:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen");
+              assert.equal(pObj.derivations[comm_1]["prov:usedEntity"],"http://y:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a");
+          });
+
+
+
+      });
+
+  });
+
+  describe('Commit Obj', function(){
+
+
+      var obj1 = git2provCvt.getCommitObj(log_line1);
+      var obj2 = git2provCvt.getCommitObj(log_line2);
+
+      it("should contain entity id", function() {
+          assert.equal(obj1.entity, "file-Mac-open-c");
+          assert.equal(obj2.entity, "file-Mac-open-c");
+          });
+
+      it("should contain commit-id", function() {
+          assert.equal(obj1.id, "commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d");
+          assert.equal(obj2.id, "commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162");
+          });
+
+      it("should contain parents id", function() {
+          assert.deepEqual(obj1.parents, ["21fd9dde98de5b31f4ca89fe0347b44fd2a1997a"]);
+          assert.deepEqual(obj2.parents, ["x","y"]);
+      });
+
+      it("should contain author", function() {
+          assert.equal(obj1.author, "user-jill");
+          assert.equal(obj2.author, "user-bob");
+      });
+
+      it("should contain author label", function() {
+          assert.equal(obj1.author_label, "jill");
+          assert.equal(obj2.author_label, "bob");
+      });
+
+      it("should contain author date", function() {
+          assert.equal(obj1.author_date, "2014-08-14T13:42:05.000Z");
+          assert.equal(obj2.author_date, "2014-08-13T00:06:41.000Z");
+      });
+
+      it("should contain committer", function() {
+          assert.equal(obj1.commiter, "user-vlad");
+          assert.equal(obj2.commiter, "user-john");
+      });
+
+      it("should contain committer label", function() {
+          assert.equal(obj1.commiter_label, "vlad");
+          assert.equal(obj2.commiter_label, "john");
+      });
+
+      it("should contain committer date", function() {
+          assert.equal(obj1.commiter_date, "2014-08-14T15:50:51.000Z");
+          assert.equal(obj2.commiter_date, "2014-08-13T00:06:41.000Z");
+      });
+
+      it("should contain subject", function() {
+          assert.equal(obj1.subject, "Modernized and harmonized the code");
+          assert.equal(obj2.subject, "Initial import");
+      });
+
+      it("should contain mod type", function() {
+          assert.equal(obj1.modification_type, "D");
+          assert.equal(obj2.modification_type, "A");
+      });
+
+
+
+
+  });
+
+  describe('Get Prefixes', function(){
+
+      it('Shoud generate correct prefix map',function(){
+
+          var prefixes = git2provCvt.getPrefixes("result", "http://xx/", "PROV-O");
+
+          assert.deepEqual(prefixes,{
+              "fullResult": "&serialization=PROV-O#",
+              "result": "http://xx/#"
+          });
+
+          });
+
+
+  });
+
+  describe('Process file list into log commands ', function(){
+
+      var provObj = git2provCvt.getProvObject(git2provCvt.getPrefixes("result:","http:/zz","PROV-O"));
+      var fileList = "README.md\n\n\n\ngit2provConverter.js\nindex.js";
+      var log_cmds;
+
+      before(function(){
+          log_cmds = git2provCvt.getLogCommands(provObj,fileList,"result:",{});
+      });
+
+      it("process file into correct log command list", function(){
+
+          assert.deepEqual(log_cmds,[
+              "git --no-pager log --date=iso --name-status --pretty=format:\"README-md,%H,%P,%an,%ad,%cn,%cd,%s,&\" -- README.md",
+              "git --no-pager log --date=iso --name-status --pretty=format:\"git2provConverter-js,%H,%P,%an,%ad,%cn,%cd,%s,&\" -- git2provConverter.js",
+              "git --no-pager log --date=iso --name-status --pretty=format:\"index-js,%H,%P,%an,%ad,%cn,%cd,%s,&\" -- index.js"
+          ]);
+
+      } );
+
+  });
+
+    var rqURL = "http://x/";
+    var provObject;
+
+
+
+    describe('PROV-XML serialization', function(){
+
+      it("Should return serialization unsupported", function(done){
+
+          var prefixes = git2provCvt.getPrefixes("result:", rqURL, "PROV-XML");
+          provObject = git2provCvt.getProvObject(prefixes, rqURL);
+
+
+          serializers.serializePROVXML(
+               git2provCvt.getProvObject(provObject, rqURL),
+               '',
+               function(result,type){
+
+                   assert.equal(type,"text/plain");
+                   assert.equal(result,"serialization unsupported");
+
+                   done();
+               }
+           );
+      });
+  });
+
+
+  describe('Serialization', function(){
+
+      var prefixes = git2provCvt.getPrefixes("result:", rqURL, "PROV-XML");
+      provObject = git2provCvt.getProvObject(prefixes, rqURL);
+
+
+      it("Should return correct minimal PROV-N", function(done){
+
+            var prefixes = git2provCvt.getPrefixes("result:", rqURL, "PROV-N");
+            provObject = git2provCvt.getProvObject(prefixes, rqURL);
+
+            serializers.serializePROVN (provObject,'',function(result,type){
+
+                    assert.equal(type,"text/plain");
+                    assert.deepEqual(result.split("\n"),[
+                        "document",
+                        "prefix result: <http://x/#>",
+                        "prefix fullResult <&serialization=PROV-N#>",
+                        "bundle http://x/:provenance",
+                        "endBundle ",
+                        "endDocument",
+                        ""
+                    ]);
+
+                    done();
+                }
+            );
+      });
+
+
+      it("Should return correct minimal PROV-O", function(done){
+
+          var prefixes = git2provCvt.getPrefixes("result:", rqURL, "PROV-O");
+          provObject = git2provCvt.getProvObject(prefixes, rqURL);
+
+          serializers.serializePROVO (provObject,'',function(result,type){
+
+                  assert.equal(type,"text/plain");
+                  assert.deepEqual(result.split("\n"),[
+                      "@prefix fullResult: <&serialization=PROV-O#> .",
+                      "@prefix prov: <http://www.w3.org/ns/prov#> .",
+                      "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .",
+                      "@prefix result:: <http://x/#> .",
+                      "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .",
+                      "http://x/:provenance\ta\tprov:Bundle ;",
+                      "\t\tprov:alternateOf\tfullResult:provenance ."
+                  ]);
+
+                  done();
+              }
+          );
+      });
+
+
+      it("Should return correct minimal PROV-JSON", function(done){
+
+          var rqURL = "http://x/";
+          var provObject = git2provCvt.getProvObject(git2provCvt.getPrefixes("result:", rqURL, "PROV-JSON"), rqURL);
+
+           var prefixes = git2provCvt.getPrefixes("result:", rqURL, "PROV-JSON");
+           provObject = git2provCvt.getProvObject(prefixes, rqURL);
+
+
+            serializers.serializePROVJSON(provObject, '', function(result,type){
+
+                  assert.equal(type,"text/plain");
+                  assert.equal(result,"{\n  \"prefix\": {\n" +
+                      "    \"result:\": \"http://x/#\",\n" +
+                      "    \"fullResult\": \"&serialization=PROV-JSON#\"\n  },\n" +
+                      "  \"bundle\": {\n    \"http://x/:provenance\": {\n      \"entity\": {},\n" +
+                      "      \"agent\": {},\n      \"activity\": {},\n      \"wasStartedBy\": {},\n" +
+                      "      \"wasEndedBy\": {},\n      \"wasAttributedTo\": {},\n" +
+                      "      \"wasAssociatedWith\": {},\n" +
+                      "      \"wasInformedBy\": {},\n" +
+                      "      \"specializationOf\": {},\n" +
+                      "      \"wasGeneratedBy\": {},\n" +
+                      "      \"used\": {},\n" +
+                      "      \"wasDerivedFrom\": {},\n" +
+                      "      \"wasInvalidatedBy\": {}\n" +
+                      "    }\n  }\n}");
+
+                  done();
+              }
+          );
+      });
+  });
 
 
 });
