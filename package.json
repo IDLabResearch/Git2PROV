@@ -35,11 +35,13 @@
         "mocha": "~1.21.4",
         "should": "~4.0.0",
         "sinon": "~1.10.3",
+        "jshint": "~2.1.10",
         "supertest": "~0.13.0",
         "xunit-file": "~0.0.5"
   },
   "scripts": {
         "test": "mocha --require test/support/env --reporter xunit-file -t 5000 --bail --check-leaks test/",
+        "hint": "./node_modules/jshint/bin/jshint lib test",
         "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- -i -g Integration --require test/support/env --reporter spec --check-leaks test/",
         "cov-jenkins": "istanbul report cobertura",
         "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -i -g Integration --require test/support/env --reporter spec --check-leaks test/"
