@@ -1,6 +1,6 @@
 {
   "name": "git2prov",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Unleash the potential of Git in the new W3C standard for provenance.",
   "bin": [
     "bin/git2prov",
