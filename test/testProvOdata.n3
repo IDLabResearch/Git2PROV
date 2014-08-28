@@ -1,0 +1,232 @@
+@prefix fullResult: <http://xxx.bob&serialization=PROV-O#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix result: <http://xxx.bob&d=1#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a	a	prov:Activity ;
+		prov:endedAtTime	"2014-08-14T15:41:35.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:user-vlad ; prov:hadRole "committer, committer"@en ] ,
+				[ a prov:Association ; prov:agent result:user-Vlad-Korolev ; prov:hadRole "author"@en ] ;
+		prov:startedAtTime	"2014-08-14T15:21:06.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:user-vlad ,
+				result:user-Vlad-Korolev ;
+		rdfs:label	"Initial commit"@en .
+result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Activity ;
+		prov:endedAtTime	"2014-08-14T15:50:51.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:user-vlad ; prov:hadRole "author, committer"@en ] ;
+		prov:qualifiedUsage	[ a prov:Usage ; prov:entity result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ,
+				[ a prov:Usage ; prov:entity result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:startedAtTime	"2014-08-14T13:42:05.000Z"^^xsd:dateTime ;
+		prov:used	result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ,
+				result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ,
+				result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ,
+				result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ;
+		prov:wasAssociatedWith	result:user-vlad ;
+		prov:wasInformedBy	result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ;
+		rdfs:label	"Modernized and harmonized the code"@en .
+result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Activity ;
+		prov:endedAtTime	"2014-08-13T00:06:41.000Z"^^xsd:dateTime ;
+		prov:qualifiedAssociation	[ a prov:Association ; prov:agent result:user-vlad ; prov:hadRole "author, committer"@en ] ;
+		prov:startedAtTime	"2014-08-13T00:06:41.000Z"^^xsd:dateTime ;
+		prov:wasAssociatedWith	result:user-vlad ;
+		rdfs:label	"Initial import"@en .
+result:file--gitignore	a	prov:Entity ;
+		rdfs:label	".gitignore"@en .
+result:file--gitignore_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file--gitignore ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Berksfile	a	prov:Entity ;
+		rdfs:label	"Berksfile"@en .
+result:file-Berksfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Berksfile ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-LICENSE	a	prov:Entity ;
+		rdfs:label	"LICENSE"@en .
+result:file-LICENSE_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-Vlad-Korolev ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:atTime "2014-08-14T15:21:06.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-LICENSE ;
+		prov:wasAttributedTo	result:user-Vlad-Korolev ;
+		prov:wasGeneratedBy	result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a .
+result:file-Linux-call_watcher-c	a	prov:Entity ;
+		rdfs:label	"Linux/call_watcher.c"@en .
+result:file-Linux-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-call_watcher-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Linux-Makefile	a	prov:Entity ;
+		rdfs:label	"Linux/Makefile"@en .
+result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:hadGeneration result:file-Linux-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen ; prov:hadUsage result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use ; prov:hadActivity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-Makefile ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasDerivedFrom	result:file-Linux-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Linux-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-Makefile ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Linux-myPreload-c	a	prov:Entity ;
+		rdfs:label	"Linux/myPreload.c"@en .
+result:file-Linux-myPreload-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedInvalidation	[ a prov:Invalidation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-myPreload-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasInvalidatedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Linux-myPreload-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-myPreload-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Linux-test-c	a	prov:Entity ;
+		rdfs:label	"Linux/test.c"@en .
+result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:hadGeneration result:file-Linux-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen ; prov:hadUsage result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use ; prov:hadActivity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-test-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasDerivedFrom	result:file-Linux-test-c_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Linux-test-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-test-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Linux-test-sh	a	prov:Entity ;
+		rdfs:label	"Linux/test.sh"@en .
+result:file-Linux-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Linux-test-sh ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-call_watcher-c	a	prov:Entity ;
+		rdfs:label	"Mac/call_watcher.c"@en .
+result:file-Mac-call_watcher-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-call_watcher-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-inject-h	a	prov:Entity ;
+		rdfs:label	"Mac/inject.h"@en .
+result:file-Mac-inject-h_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedInvalidation	[ a prov:Invalidation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-inject-h ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasInvalidatedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-inject-h_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-inject-h ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Mac-inject-m	a	prov:Entity ;
+		rdfs:label	"Mac/inject.m"@en .
+result:file-Mac-inject-m_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedInvalidation	[ a prov:Invalidation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-inject-m ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasInvalidatedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-inject-m_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-inject-m ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Mac-Makefile	a	prov:Entity ;
+		rdfs:label	"Mac/Makefile"@en .
+result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:hadGeneration result:file-Mac-Makefile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen ; prov:hadUsage result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use ; prov:hadActivity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-Makefile ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasDerivedFrom	result:file-Mac-Makefile_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-Makefile_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-Makefile ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Mac-open-c	a	prov:Entity ;
+		rdfs:label	"Mac/open.c"@en .
+result:file-Mac-open-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedInvalidation	[ a prov:Invalidation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-open-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasInvalidatedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-open-c_commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 ; prov:atTime "2014-08-13T00:06:41.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-open-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-e01161193fe24e3c8f08a6d80c27ea33dac0c162 .
+result:file-Mac-test-c	a	prov:Entity ;
+		rdfs:label	"Mac/test.c"@en .
+result:file-Mac-test-c_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-test-c ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Mac-test-sh	a	prov:Entity ;
+		rdfs:label	"Mac/test.sh"@en .
+result:file-Mac-test-sh_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Mac-test-sh ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-README-md	a	prov:Entity ;
+		rdfs:label	"README.md"@en .
+result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-Vlad-Korolev ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:atTime "2014-08-14T15:21:06.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-README-md ;
+		prov:wasAttributedTo	result:user-Vlad-Korolev ;
+		prov:wasGeneratedBy	result:commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a .
+result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedDerivation	[ a prov:Derivation ; prov:entity result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ; prov:hadGeneration result:file-README-md_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_gen ; prov:hadUsage result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d_use ; prov:hadActivity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-README-md ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasDerivedFrom	result:file-README-md_commit-21fd9dde98de5b31f4ca89fe0347b44fd2a1997a ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:file-Vagrantfile	a	prov:Entity ;
+		rdfs:label	"Vagrantfile"@en .
+result:file-Vagrantfile_commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d	a	prov:Entity ;
+		prov:qualifiedAttribution	[ a prov:Attribution ; prov:agent result:user-vlad ; a "authorship"@en ] ;
+		prov:qualifiedGeneration	[ a prov:Generation ; prov:activity result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d ; prov:atTime "2014-08-14T13:42:05.000Z"^^xsd:dateTime ] ;
+		prov:specializationOf	result:file-Vagrantfile ;
+		prov:wasAttributedTo	result:user-vlad ;
+		prov:wasGeneratedBy	result:commit-9ff4ed4636c15aa04c262f9e89c52d451a2c1e6d .
+result:provenance	a	prov:Bundle ;
+		prov:alternateOf	fullResult:provenance .
+result:user-vlad	a	prov:Agent ;
+		rdfs:label	"vlad"@en .
+result:user-Vlad-Korolev	a	prov:Agent ;
+		rdfs:label	"Vlad Korolev"@en .
