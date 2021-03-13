@@ -3,7 +3,7 @@ var server = require("../lib/server");
 var router = require("../lib/router");
 var requestHandlers = require("../lib/requestHandlers");
 
+const PORT = process.env.PORT || 8905;
 var handle = { '/git2prov': requestHandlers.git2prov };
-var port = parseInt(process.argv[2], 10) || 8905;
-server.start(port, router.route, handle);
-console.log("Server running on http://localhost:" + port + "/");
+server.start(router.route, handle);
+console.log("Server running on http://localhost:" + PORT + "/");
