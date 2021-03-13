@@ -27,7 +27,7 @@
   "homepage": "http://git2prov.org/",
   "dependencies": {
     "n3": "~0.2.3",
-    "http-proxy": "~1.0.2",
+    "http-proxy": "~1.18.1",
     "express": "~3.4.8"
   },
   "devDependencies": {
