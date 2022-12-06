@@ -28,7 +28,7 @@
   "dependencies": {
     "n3": "~0.2.3",
     "http-proxy": "~1.0.2",
-    "express": "~3.4.8"
+    "express": "~4.17.3"
   },
   "devDependencies": {
     "istanbul": "0.3.0",
