@@ -28,7 +28,7 @@
   "dependencies": {
     "n3": "~0.2.3",
     "http-proxy": "~1.0.2",
-    "express": "~3.4.8"
+    "express": "~4.18.2"
   },
   "devDependencies": {
     "istanbul": "0.3.0",
@@ -36,7 +36,7 @@
     "should": "~4.0.0",
     "sinon": "~1.10.3",
     "jshint": "~2.1.10",
-    "supertest": "~0.13.0",
+    "supertest": "~6.3.3",
     "xunit-file": "~0.0.5"
   },
   "scripts": {
